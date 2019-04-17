@@ -17,11 +17,11 @@ gradle copyMyDependencies
 2. Open Katalon Studio and open this project
 
 ## Build project
+1. Run:
 ```sh
 gradle jar
 ```
+2. Copy *build/libs/katalon-studio-report-plugin.jar* after running command ```gradle jar``` and paste into Plugins folder of another Katalon Studio project or upload to Katalon Store
 
 ## Usage
-1. Copy *build/libs/katalon-studio-report-plugin.jar* after running command ```gradle jar``` and paste into Plugins folder of another Katalon Studio project or upload to Katalon Store
-2. Open `Project/Settings/Plugin/Report`, select the reports that will be generated automatically after each Test Suite execution.
-![Report Setting](docs/tutorials/images/report_setting.png)
+[usage](docs/tutorials/usage.md)
