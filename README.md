@@ -1,0 +1,1 @@
+# katalon-studio-report-plugin
