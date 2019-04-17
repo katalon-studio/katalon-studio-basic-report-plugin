@@ -24,4 +24,4 @@ gradle jar
 2. Copy *build/libs/katalon-studio-report-plugin.jar* after running command ```gradle jar``` and paste into Plugins folder of another Katalon Studio project or upload to Katalon Store
 
 ## Usage
-[usage](docs/tutorials/usage.md)
+[Usage guide](docs/tutorials/usage.md)
