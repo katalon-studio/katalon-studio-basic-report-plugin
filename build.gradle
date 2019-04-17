@@ -1,0 +1,92 @@
+plugins {
+  id 'java'
+  id 'groovy'
+  id 'com.github.johnrengelman.shadow' version '4.0.4'
+  id "com.katalon.gradle-plugin" version "0.0.6"
+}
+
+ext {
+  LIBRARY_PREFIX = "katalon_generated_"
+}
+
+repositories {
+  jcenter()
+  mavenCentral()
+}
+
+sourceSets {
+  main {
+    groovy {
+      srcDirs = ['Keywords', 'Include/scripts/groovy', 'Test Listeners']
+      srcDir 'Libs'
+    }
+  }
+}
+
+dependencies {
+  compile fileTree(dir: 'lib', include: '*.jar')
+}
+
+shadowJar {
+  exclude 'Temp*.class'
+  exclude 'internal/**'
+  exclude 'CustomKeywords.class'
+  exclude '*.groovy'
+  exclude '*.java'
+}
+
+katalon {
+  minimize = false
+}
+
+jar {
+  from fileTree("$buildDir/dependencies/")
+
+  from('Include/resources') {
+    include '*.jrxml'
+  }
+
+  from('lib') {
+      include '*.jar'
+      into 'lib'
+  }
+
+  exclude 'Temp*.class'
+  exclude 'internal/**'
+  exclude 'CustomKeywords.class'
+}
+
+task sourceJar(type: Jar, dependsOn: classes) {
+  classifier = 'sources'
+  from sourceSets.main.groovy
+}
+
+task copyMyDependencies() {
+  Project project = this.getProject();
+  project.delete({deleteSpec ->
+    deleteSpec.delete(
+            project.fileTree(
+                    "Drivers",
+                    {files -> files.include("**/" + LIBRARY_PREFIX + "*")}
+            )
+    )
+  });
+  project.copy({copySpec ->
+    copySpec
+            .from(project.getConfigurations().getByName("compile"))
+            .into("./Drivers")
+            .rename({s -> LIBRARY_PREFIX + s})
+  });
+}
+
+task extractDependencies(type: Sync) {
+  dependsOn configurations.compile
+
+  from (configurations.compile.collect {
+    zipTree(it)
+  })
+
+  into "$buildDir/dependencies/"
+}
+
+jar.dependsOn extractDependencies

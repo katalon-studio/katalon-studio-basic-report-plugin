@@ -1,0 +1,23 @@
+#Maven
+target
+
+#Eclipse
+bin
+.project
+.classpath
+.settings
+
+#IntellJ
+.idea
+
+#VS Code
+.vscode
+
+#Gradle
+build
+.gradle
+
+#Katalon
+Drivers
+Libs
+

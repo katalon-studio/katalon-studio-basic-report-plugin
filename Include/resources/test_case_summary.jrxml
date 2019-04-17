@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="summaryTestCase" language="groovy" pageWidth="595" pageHeight="841" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="fbd4a867-64c0-4043-bbcb-b62a7b95ae9b">
+	<property name="ireport.zoom" value="1.6105100000000014"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="statusStyleWithoutBackGround">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{testCaseRecord}.getStatus().getStatusValue() == com.kms.katalon.core.logging.model.TestStatus.TestStatusValue.PASSED]]></conditionExpression>
+			<style mode="Opaque" forecolor="#00CC66"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{testCaseRecord}.getStatus().getStatusValue() == com.kms.katalon.core.logging.model.TestStatus.TestStatusValue.FAILED]]></conditionExpression>
+			<style mode="Opaque" forecolor="#FF3333"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{testCaseRecord}.getStatus().getStatusValue() == com.kms.katalon.core.logging.model.TestStatus.TestStatusValue.ERROR]]></conditionExpression>
+			<style mode="Opaque" forecolor="#FFCC00"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{testCaseRecord}.getStatus().getStatusValue() == com.kms.katalon.core.logging.model.TestStatus.TestStatusValue.INCOMPLETE]]></conditionExpression>
+			<style mode="Opaque" forecolor="#996600"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="testCaseRecord" class="com.kms.katalon.core.logging.model.TestCaseLogRecord"/>
+	<summary>
+		<band height="195">
+			<textField>
+				<reportElement positionType="Float" x="360" y="110" width="200" height="20" uuid="00cf921c-2ada-4713-b47e-661ccaf0bd13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[com.kms.katalon.core.util.internal.DateUtil.getDateTimeFormatted($P{testCaseRecord}.getEndTime())]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="110" y="54" width="450" height="20" uuid="19bd3299-ceb2-4b3f-a4d2-4947b3781fad"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{testCaseRecord}.getDescription().replace("\\n", System.lineSeparator())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="statusStyleWithoutBackGround" positionType="Float" x="110" y="150" width="450" height="20" uuid="07fdfc36-be6e-43ba-8637-87843a974891"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineColor="#FFFFFF"/>
+					<leftPen lineColor="#FFFFFF"/>
+					<bottomPen lineColor="#FFFFFF"/>
+					<rightPen lineColor="#FFFFFF"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{testCaseRecord}.getStatus().getStatusValue().toString()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="174" width="595" height="20" uuid="2bcb4860-5b76-408d-8fd3-1071023165c5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Details]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="110" y="30" width="450" height="20" uuid="0f091d54-3828-41f6-9b37-2574921a2a80"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{testCaseRecord}.getName()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="40" y="54" width="70" height="20" uuid="64680904-b51a-44ea-933d-0f764ba2e4f6"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="40" y="130" width="70" height="20" uuid="98c9f53f-e6c1-4803-9e05-b2223f56dcf0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Elapsed]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="0" width="595" height="20" uuid="472df02a-1590-457d-a8cf-70b5d7c46e30"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Information]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="110" y="110" width="180" height="20" uuid="9135cb42-7575-48f8-a0c2-f5b09e68f797"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[com.kms.katalon.core.util.internal.DateUtil.getDateTimeFormatted($P{testCaseRecord}.getStartTime())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="40" y="110" width="70" height="20" uuid="258e934a-7b9a-4767-a88e-35fac11b29e1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Start]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="40" y="150" width="70" height="20" uuid="39709606-bf0e-408d-a2db-30b50d47c396"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="40" y="30" width="70" height="20" uuid="9a35dac0-c72d-4ec8-9161-f47cdc4cab46"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="110" y="130" width="450" height="20" uuid="98cefddf-7b30-4239-8624-857f4aa9a814"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[com.kms.katalon.core.util.internal.DateUtil.getElapsedTime($P{testCaseRecord}.getStartTime(), $P{testCaseRecord}.getEndTime())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="290" y="110" width="70" height="20" uuid="e2a7ee78-560d-4bef-909c-d2bb83a0f1ee"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[End]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="110" y="79" width="450" height="20" uuid="722353a6-4fe7-4c1d-8419-7348a20bb95a"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{testCaseRecord}.getTag()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="40" y="78" width="70" height="20" uuid="860de58c-475c-413f-8de6-17f308277515"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tag]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

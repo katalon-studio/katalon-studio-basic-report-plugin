@@ -1,0 +1,44 @@
+{
+	"name":"Katalon Report",
+	"listeners": ["KatalonReportListener"],
+	"report": {
+		"exportProviderClassName":"com.kms.katalon.core.reporting.plugin.KatalonExportReportProvider"
+	},
+	"configuration": {
+		"settingId": "com.katalon.plugin.report",
+		"settingPage": {
+			"name": "Report",
+			"components": [
+				{
+					"key": "lblGenerateReport",
+					"type": "label",
+					"label": "Automatically generate these reports after test execution:"
+				},
+				{
+					"key": "generateHTML",
+					"type": "checkbox",
+					"label": "HTML",
+					"defaultValue": "true"
+				},
+				{
+					"key": "generateCSV",
+					"type": "checkbox",
+					"label": "CSV",
+					"defaultValue": "true"
+				},
+				{
+					"key": "generateJUnit",
+					"type": "checkbox",
+					"label": "JUnit",
+					"defaultValue": "true"
+				},
+				{
+					"key": "generatePDF",
+					"type": "checkbox",
+					"label": "PDF",
+					"defaultValue": "false"
+				}
+			]
+		}
+	}
+}

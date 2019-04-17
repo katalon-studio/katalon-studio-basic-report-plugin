@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="User Overview" pageWidth="595" pageHeight="841" columnWidth="545" leftMargin="25" rightMargin="25" topMargin="25" bottomMargin="25" uuid="b1198982-d169-4d1d-a5ed-34f58ab36656">
+	<property name="ireport.zoom" value="1.7715610000000037"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<style name="Sans_Bold" fontName="SansSerif" fontSize="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+	<style name="Sans_Normal" isDefault="true" fontName="SansSerif" fontSize="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+	<style name="Title" style="Sans_Bold" fontSize="12"/>
+	<style name="ColumnHeader" style="Sans_Bold" forecolor="#FFFFFF"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#73B0E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#CFDBE6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#8CB1C8">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#CFDDE6">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="statusStyle" style="table 4_TD">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{status}.getStatusValue() == com.kms.katalon.core.logging.model.TestStatus.TestStatusValue.PASSED]]></conditionExpression>
+			<style mode="Opaque" forecolor="#00CC66"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{status}.getStatusValue() == com.kms.katalon.core.logging.model.TestStatus.TestStatusValue.FAILED]]></conditionExpression>
+			<style mode="Opaque" forecolor="#FF3333"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{status}.getStatusValue() == com.kms.katalon.core.logging.model.TestStatus.TestStatusValue.ERROR]]></conditionExpression>
+			<style mode="Opaque" forecolor="#FFCC00"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{status}.getStatusValue() == com.kms.katalon.core.logging.model.TestStatus.TestStatusValue.INCOMPLETE]]></conditionExpression>
+			<style mode="Opaque" forecolor="#996600"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="stepDataset" uuid="26c60fcb-aa92-40f8-831a-21d6a0d805a8">
+		<parameter name="LOG_FOLDER" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="id" class="java.lang.String">
+			<fieldDescription><![CDATA[id]]></fieldDescription>
+		</field>
+		<field name="name" class="java.lang.String">
+			<fieldDescription><![CDATA[name]]></fieldDescription>
+		</field>
+		<field name="description" class="java.lang.String">
+			<fieldDescription><![CDATA[description]]></fieldDescription>
+		</field>
+		<field name="status" class="com.kms.katalon.core.logging.model.TestStatus">
+			<fieldDescription><![CDATA[status]]></fieldDescription>
+		</field>
+		<field name="startTime" class="java.lang.Long">
+			<fieldDescription><![CDATA[startTime]]></fieldDescription>
+		</field>
+		<field name="endTime" class="java.lang.Long">
+			<fieldDescription><![CDATA[endTime]]></fieldDescription>
+		</field>
+		<field name="attachments" class="java.lang.Object">
+			<fieldDescription><![CDATA[attachments]]></fieldDescription>
+		</field>
+		<field name="message" class="java.lang.String">
+			<fieldDescription><![CDATA[message]]></fieldDescription>
+		</field>
+	</subDataset>
+	<subDataset name="attachmentDataSet" uuid="ee927aa9-5b06-41ad-b942-d4e77b29046b">
+		<parameter name="LOG_FOLDER" class="java.lang.String"/>
+		<field name="_THIS" class="java.lang.String">
+			<fieldDescription><![CDATA[_THIS]]></fieldDescription>
+		</field>
+	</subDataset>
+	<parameter name="LOG_FOLDER" class="java.lang.String"/>
+	<parameter name="TEST_CASE_SUMMARY_TPL" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[name]]></fieldDescription>
+	</field>
+	<field name="childRecords" class="java.lang.Object">
+		<fieldDescription><![CDATA[childRecords]]></fieldDescription>
+	</field>
+	<field name="source" class="java.lang.String">
+		<fieldDescription><![CDATA[source]]></fieldDescription>
+	</field>
+	<field name="attachments" class="java.lang.String[]">
+		<fieldDescription><![CDATA[attachments]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.String">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="description" class="java.lang.String">
+		<fieldDescription><![CDATA[description]]></fieldDescription>
+	</field>
+	<field name="status" class="com.kms.katalon.core.logging.model.TestStatus">
+		<fieldDescription><![CDATA[status]]></fieldDescription>
+	</field>
+	<field name="startTime" class="java.lang.Long">
+		<fieldDescription><![CDATA[startTime]]></fieldDescription>
+	</field>
+	<field name="endTime" class="java.lang.Long">
+		<fieldDescription><![CDATA[endTime]]></fieldDescription>
+	</field>
+	<field name="_THIS" class="com.kms.katalon.core.logging.model.TestCaseLogRecord">
+		<fieldDescription><![CDATA[_THIS]]></fieldDescription>
+	</field>
+	<variable name="pageNumberCollection" class="java.util.HashMap" resetType="None" calculation="System">
+		<variableExpression><![CDATA[new java.util.HashMap<Integer, Integer>()]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<group name="groupFooter">
+		<groupExpression><![CDATA[$V{REPORT_COUNT}]]></groupExpression>
+		<groupFooter>
+			<band height="1">
+				<break>
+					<reportElement x="0" y="0" width="545" height="1" uuid="e716bec3-ea01-403a-8ca5-98cb6d4fad65">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+				</break>
+			</band>
+		</groupFooter>
+	</group>
+	<detail>
+		<band height="52" splitType="Stretch">
+			<textField bookmarkLevel="1">
+				<reportElement x="0" y="1" width="545" height="1" uuid="8fb76036-028b-4774-85aa-a4428be56c33">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="0"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Hyperlink"]]></textFieldExpression>
+				<anchorNameExpression><![CDATA["TC #" + $V{REPORT_COUNT}]]></anchorNameExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" hyperlinkType="LocalAnchor">
+				<reportElement x="0" y="0" width="545" height="30" isPrintWhenDetailOverflows="true" uuid="53288a60-ee89-4a31-b571-e481a97a1902">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+					<paragraph leftIndent="50" rightIndent="50"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}.substring($F{name}.lastIndexOf("/") + 1, $F{name}.length())]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="0" y="33" width="545" height="1" isPrintWhenDetailOverflows="true" uuid="211a5492-2146-4b9c-b2ca-c6681d95fae9">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<subreport runToBottom="false">
+				<reportElement positionType="Float" x="0" y="44" width="545" height="0" uuid="45e50248-45bc-44da-9a74-762c2ebc4b9b">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<subreportParameter name="testCaseRecord">
+					<subreportParameterExpression><![CDATA[$F{_THIS}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
+				<subreportExpression><![CDATA[net.sf.jasperreports.engine.JasperCompileManager.compileReport(com.kms.katalon.core.pdf.ResourceUtil.getResourceAsInputStream(com.kms.katalon.core.pdf.AbstractPdfReportGenerator.class, $P{TEST_CASE_SUMMARY_TPL}))]]></subreportExpression>
+			</subreport>
+			<componentElement>
+				<reportElement key="table" positionType="Float" mode="Opaque" x="0" y="52" width="545" height="0" uuid="ff677573-e66a-449f-9f1e-c4559d45f428">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="stepDataset" uuid="b754d7cb-cd0f-4621-babb-62aae5c20167">
+						<datasetParameter name="LOG_FOLDER">
+							<datasetParameterExpression><![CDATA[$P{LOG_FOLDER}]]></datasetParameterExpression>
+						</datasetParameter>
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource((Object[]) $F{childRecords})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="30" uuid="076bfd68-71cf-4513-9286-9c307734c114">
+						<jr:columnHeader style="table_TH" height="20" rowSpan="1">
+							<box>
+								<pen lineWidth="0.0"/>
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<staticText>
+								<reportElement style="table_TH" mode="Opaque" x="0" y="0" width="30" height="20" isPrintWhenDetailOverflows="true" uuid="be496664-5c6f-41e6-b23c-0945a3df5b96"/>
+								<box>
+									<pen lineWidth="0.0"/>
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.0"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10" isBold="true"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<text><![CDATA[#]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 4_TD" height="61" rowSpan="1">
+							<box padding="2">
+								<pen lineWidth="0.0"/>
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<textField>
+								<reportElement style="table 4_TD" mode="Opaque" x="0" y="0" width="26" height="57" isPrintWhenDetailOverflows="true" uuid="a52b54ef-f545-464f-859d-afd2f2c041fd"/>
+								<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+									<pen lineWidth="0.0"/>
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.0"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Top">
+									<font size="9"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="372" uuid="5dca9ee5-b42d-45f7-bf0e-bab4f6fdddef">
+						<jr:columnHeader style="table_TH" height="20" rowSpan="1">
+							<box>
+								<pen lineWidth="0.0"/>
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<staticText>
+								<reportElement style="table_TH" mode="Opaque" x="0" y="0" width="372" height="20" isPrintWhenDetailOverflows="true" uuid="eee8b6b1-754c-449a-93da-810a64b7b2b2"/>
+								<box>
+									<pen lineWidth="0.0"/>
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.0"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Description]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 4_TD" height="61" rowSpan="1">
+							<box padding="2">
+								<pen lineWidth="0.0"/>
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<textField isStretchWithOverflow="true">
+								<reportElement style="table 4_TD" mode="Opaque" x="0" y="0" width="368" height="29" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="0c47f9bd-eba9-4734-8110-7929aa8833b6">
+									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+								</reportElement>
+								<box>
+									<pen lineWidth="0.0"/>
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.0"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
+								<textElement verticalAlignment="Top" markup="styled">
+									<font fontName="SansSerif" size="9"/>
+									<paragraph rightIndent="0"/>
+								</textElement>
+								<textFieldExpression><![CDATA[($F{description}.isEmpty() ? $F{name} : $F{description}) + System.lineSeparator() + System.lineSeparator() + "<style forecolor='#0099FF'>" + ($F{message} != null ? $F{message} : "") + "</style>"]]></textFieldExpression>
+							</textField>
+							<componentElement>
+								<reportElement positionType="Float" x="0" y="29" width="368" height="28" isPrintWhenDetailOverflows="true" uuid="10a8087c-9be8-4be2-af7a-e4f7104f802e">
+									<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+									<property name="com.jaspersoft.studio.unit.CONTENTS.height" value="px"/>
+									<printWhenExpression><![CDATA[((String[]) $F{attachments}).length > 0]]></printWhenExpression>
+								</reportElement>
+								<jr:list printOrder="Vertical">
+									<datasetRun subDataset="attachmentDataSet" uuid="b23e0674-f302-45b3-a5b4-70fe308cb37b">
+										<datasetParameter name="LOG_FOLDER">
+											<datasetParameterExpression><![CDATA[$P{LOG_FOLDER}]]></datasetParameterExpression>
+										</datasetParameter>
+										<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource((Object[]) $F{attachments})]]></dataSourceExpression>
+									</datasetRun>
+									<jr:listContents height="28" width="368">
+										<image scaleImage="RealSize" hAlign="Center">
+											<reportElement x="0" y="0" width="368" height="28" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="a9247211-a6a1-444a-9eaa-5987ca97180b"/>
+											<imageExpression><![CDATA[(new File($F{_THIS}).isAbsolute()) ? ($F{_THIS}) : ($P{LOG_FOLDER} + java.io.File.separator + $F{_THIS})]]></imageExpression>
+										</image>
+									</jr:listContents>
+								</jr:list>
+							</componentElement>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="70" uuid="feb61a30-ed12-4421-a4e4-73222e5bd405">
+						<jr:columnHeader style="table_TH" height="20" rowSpan="1">
+							<box>
+								<pen lineWidth="0.0"/>
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<staticText>
+								<reportElement style="table_TH" mode="Opaque" x="0" y="0" width="70" height="20" isPrintWhenDetailOverflows="true" uuid="ef50334f-1dbf-4943-bf15-216a2ae85e45"/>
+								<box>
+									<pen lineWidth="0.0"/>
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.0"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Elapsed]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 4_TD" height="61" rowSpan="1">
+							<box padding="2">
+								<pen lineWidth="0.0"/>
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<textField>
+								<reportElement style="table 4_TD" mode="Opaque" x="0" y="0" width="66" height="57" isPrintWhenDetailOverflows="true" uuid="8ed12b35-822f-49ad-b01c-7347d6e5a781"/>
+								<box>
+									<pen lineWidth="0.0"/>
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.0"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Top">
+									<font size="9"/>
+								</textElement>
+								<textFieldExpression><![CDATA[com.kms.katalon.core.util.internal.DateUtil.getElapsedTime($F{startTime}, $F{endTime})]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="73" uuid="af002439-0def-46a4-9533-41c4ffa8d59e">
+						<jr:columnHeader style="table_TH" height="20" rowSpan="1">
+							<box>
+								<pen lineWidth="0.0"/>
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<staticText>
+								<reportElement style="table_TH" mode="Opaque" x="0" y="0" width="73" height="20" isPrintWhenDetailOverflows="true" uuid="4a38ad03-8b39-4221-8b2d-6458b9111ca4"/>
+								<box>
+									<pen lineWidth="0.0"/>
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.0"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Status]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 4_TD" height="61" rowSpan="1">
+							<box padding="2">
+								<pen lineWidth="0.0"/>
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<textField>
+								<reportElement style="statusStyle" mode="Opaque" x="0" y="0" width="69" height="57" isPrintWhenDetailOverflows="true" uuid="70579571-f0c1-4596-80a9-2a6d36fefda5"/>
+								<box>
+									<pen lineWidth="0.0"/>
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.0"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Top">
+									<font size="9"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{status}.getStatusValue().toString()]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+</jasperReport>
