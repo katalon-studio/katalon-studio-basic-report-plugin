@@ -19,6 +19,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.kms.katalon.core.logging.KeywordLogger;
 import com.kms.katalon.core.logging.XMLParserException;
 import com.kms.katalon.core.logging.model.ILogRecord;
 import com.kms.katalon.core.logging.model.TestCaseLogRecord;
@@ -28,9 +29,12 @@ import com.kms.katalon.core.pdf.exception.JasperReportException;
 import com.kms.katalon.core.reporting.ExportReportProvider;
 import com.kms.katalon.core.reporting.ReportUtil;
 import com.kms.katalon.core.reporting.ReportWriterUtil;
+import com.kms.katalon.core.util.internal.ExceptionsUtil;
 import com.kms.katalon.core.util.internal.JsonUtil;
 
 public class KatalonExportReportProvider implements ExportReportProvider {
+    
+    private static final KeywordLogger logger = KeywordLogger.getInstance(KatalonExportReportProvider.class);
 
     public static final String PASSED_LOG_BACKGROUND_COLOR = "#5bb135";
 
@@ -81,6 +85,7 @@ public class KatalonExportReportProvider implements ExportReportProvider {
                     try {
                         pdfGenerator.exportToPDF(exportLocation.getAbsolutePath());
                     } catch (JasperReportException e) {
+                        logger.logWarning(ExceptionsUtil.getStackTraceForThrowable(e));
                         throw new IOException(e);
                     }
                     return exportLocation;
@@ -88,6 +93,7 @@ public class KatalonExportReportProvider implements ExportReportProvider {
                     break;
             }
         } catch (XMLParserException | XMLStreamException ex) {
+            logger.logWarning(ExceptionsUtil.getStackTraceForThrowable(ex));
             throw new IOException(ex);
         }
         return null;
