@@ -46,11 +46,6 @@ jar {
     include '*.jrxml'
   }
 
-  from('lib') {
-      include '*.jar'
-      into 'lib'
-  }
-
   exclude 'Temp*.class'
   exclude 'internal/**'
   exclude 'CustomKeywords.class'

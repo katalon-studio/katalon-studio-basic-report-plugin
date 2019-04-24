@@ -1,6 +1,6 @@
 import java.io.File;
 
-import com.kms.katalon.core.annotation.AfterTestExecution;
+import com.kms.katalon.core.annotation.AfterTestSuite;
 import com.kms.katalon.core.configuration.RunConfiguration;
 import com.kms.katalon.core.logging.model.TestSuiteLogRecord;
 import com.kms.katalon.core.reporting.ReportWriterUtil;
@@ -10,8 +10,8 @@ import com.kms.katalon.core.util.internal.ExceptionsUtil;
 
 public class KatalonReportListener {
 
-    @AfterTestExecution
-    public void afterTestExecution() {
+    @AfterTestSuite
+    public void exportKatalonReports() {
         try {
             String reportFolder = RunConfiguration.getReportFolder();
             String projectDir = RunConfiguration.getProjectDir();
