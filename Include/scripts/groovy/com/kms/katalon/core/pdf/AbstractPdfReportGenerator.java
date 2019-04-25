@@ -82,6 +82,7 @@ public abstract class AbstractPdfReportGenerator {
         thread.setContextClassLoader(this.getClass().getClassLoader());
 
         try {
+            JasperClasspathManager.getInstance().modifySystemProperties();
             JasperReport jasperReport = JasperCompileManager.compileReport(JarUtil.getResourceAsInputStream(
                     getClass(), getPrimaryTemplateLocation()));
 
@@ -90,7 +91,7 @@ public abstract class AbstractPdfReportGenerator {
 
             JasperExportManager.exportReportToPdfFile(jasperPrint, pdfFile.getAbsolutePath());
             return pdfFile;
-        } catch (JRException | JRRuntimeException e) {
+        } catch (JRException | JRRuntimeException | URISyntaxException e) {
             throw new JasperReportException("Unable to export pdf to location: "+ fileLocation, e);
         } finally {
             thread.setContextClassLoader(loader);
