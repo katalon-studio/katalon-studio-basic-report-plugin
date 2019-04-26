@@ -2,7 +2,7 @@
 #### Automatically generate report
 1. Open `Project/Settings/Plugin/Report`, select the reports that will be generated automatically after each Test Suite execution.
 ![Report Setting](images/report_setting.png)
-2. Run a test suite and observer the *Log Viewer*, the *Report Folder* after the test execution complete. The generated reports will be the same the settings you configured above.
+2. Run a test suite and observe the *Log Viewer*, the *Report Folder* after the test execution complete. The generated reports will be the same the settings you configured above.
 
 Log Viewer after test execution
 
