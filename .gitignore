@@ -18,6 +18,5 @@ build
 .gradle
 
 #Katalon
-Drivers
+Drivers/katalon_generated_*
 Libs
-
