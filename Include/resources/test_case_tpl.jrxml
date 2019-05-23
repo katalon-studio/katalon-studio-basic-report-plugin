@@ -363,7 +363,7 @@
 								<rightPen lineWidth="0.0"/>
 							</box>
 							<textField isStretchWithOverflow="true">
-								<reportElement style="table 4_TD" mode="Opaque" x="0" y="0" width="368" height="29" isPrintWhenDetailOverflows="true" forecolor="#000000" uuid="0c47f9bd-eba9-4734-8110-7929aa8833b6">
+								<reportElement positionType="Float" style="table 4_TD" mode="Opaque" x="0" y="0" width="368" height="29" isPrintWhenDetailOverflows="false" forecolor="#000000" uuid="0c47f9bd-eba9-4734-8110-7929aa8833b6">
 									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 								</reportElement>
 								<box>
