@@ -33,7 +33,7 @@ sourceSets {
 shadowJar {
   exclude 'Temp*.class'
   from('Include/resources') {
-    include '*.jrxml'
+    include '*.*'
   }
 }
 
