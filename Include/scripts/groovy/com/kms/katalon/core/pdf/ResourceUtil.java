@@ -77,4 +77,14 @@ public class ResourceUtil {
             // Nothing to do
         }
     }
+
+    public static String[] getExistedAttachments(String[] attachments) {
+        List<String> existedAttachments = new ArrayList<>();
+        for (String filePath : attachments) {
+            if (new File(filePath).exists()) {
+                existedAttachments.add(filePath);
+            }
+        }
+        return existedAttachments.toArray(new String[0]);
+    }
 }
