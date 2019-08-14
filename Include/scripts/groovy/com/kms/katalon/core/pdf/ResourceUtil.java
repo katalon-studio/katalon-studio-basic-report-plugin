@@ -78,10 +78,10 @@ public class ResourceUtil {
         }
     }
 
-    public static String[] getExistedAttachments(String[] attachments) {
+    public static String[] getExistedAttachments(String logFolder, String[] attachments) {
         List<String> existedAttachments = new ArrayList<>();
         for (String filePath : attachments) {
-            if (new File(filePath).exists()) {
+            if (new File(filePath).exists() || new File(logFolder, filePath).exists()) {
                 existedAttachments.add(filePath);
             }
         }
