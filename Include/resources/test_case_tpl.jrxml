@@ -168,7 +168,7 @@
 		<field name="endTime" class="java.lang.Long">
 			<fieldDescription><![CDATA[endTime]]></fieldDescription>
 		</field>
-		<field name="attachments" class="java.lang.Object">
+		<field name="attachments" class="java.lang.String[]">
 			<fieldDescription><![CDATA[attachments]]></fieldDescription>
 		</field>
 		<field name="message" class="java.lang.String">
@@ -377,20 +377,20 @@
 									<font fontName="SansSerif" size="9"/>
 									<paragraph rightIndent="0"/>
 								</textElement>
-								<textFieldExpression><![CDATA[($F{description}.isEmpty() ? $F{name} : $F{description}) + System.lineSeparator() + System.lineSeparator() + "<style forecolor='#0099FF'>" + ($F{message} != null ? $F{message} : "") + "</style>"]]></textFieldExpression>
+								<textFieldExpression><![CDATA[(com.kms.katalon.core.reporting.XmlStringUtil.escapeXml($F{description}.isEmpty() ? $F{name} : $F{description})) + System.lineSeparator() + System.lineSeparator() + "<style forecolor='#0099FF'>" + ($F{message} != null ? com.kms.katalon.core.reporting.XmlStringUtil.escapeXml($F{message}) : "") + "</style>"]]></textFieldExpression>
 							</textField>
 							<componentElement>
 								<reportElement positionType="Float" x="0" y="29" width="368" height="28" isPrintWhenDetailOverflows="true" uuid="10a8087c-9be8-4be2-af7a-e4f7104f802e">
 									<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 									<property name="com.jaspersoft.studio.unit.CONTENTS.height" value="px"/>
-									<printWhenExpression><![CDATA[((String[]) $F{attachments}).length > 0]]></printWhenExpression>
+									<printWhenExpression><![CDATA[com.kms.katalon.core.pdf.ResourceUtil.getExistedAttachments($P{LOG_FOLDER}, $F{attachments}).length > 0]]></printWhenExpression>
 								</reportElement>
 								<jr:list printOrder="Vertical">
 									<datasetRun subDataset="attachmentDataSet" uuid="b23e0674-f302-45b3-a5b4-70fe308cb37b">
 										<datasetParameter name="LOG_FOLDER">
 											<datasetParameterExpression><![CDATA[$P{LOG_FOLDER}]]></datasetParameterExpression>
 										</datasetParameter>
-										<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource((Object[]) $F{attachments})]]></dataSourceExpression>
+										<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource(com.kms.katalon.core.pdf.ResourceUtil.getExistedAttachments($P{LOG_FOLDER}, $F{attachments}))]]></dataSourceExpression>
 									</datasetRun>
 									<jr:listContents height="28" width="368">
 										<image scaleImage="RealSize" hAlign="Center">
