@@ -27,12 +27,6 @@
 					"defaultValue": "true"
 				},
 				{
-					"key": "generateJUnit",
-					"type": "checkbox",
-					"label": "JUnit",
-					"defaultValue": "true"
-				},
-				{
 					"key": "generatePDF",
 					"type": "checkbox",
 					"label": "PDF",
