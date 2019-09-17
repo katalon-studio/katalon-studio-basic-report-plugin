@@ -23,7 +23,7 @@ public class KatalonReportListener {
             boolean genereteCSV = bundleSettingStore.getBoolean("generateCSV", true);
             // boolean genereteJUnit = bundleSettingStore.getBoolean("generateJUnit", true);
             boolean generetePDF = bundleSettingStore.getBoolean("generatePDF", false);
-            if (!genereteHTML && !genereteCSV && !genereteJUnit && !generetePDF) {
+            if (!genereteHTML && !genereteCSV && !generetePDF) {
                 return;
             }
 
