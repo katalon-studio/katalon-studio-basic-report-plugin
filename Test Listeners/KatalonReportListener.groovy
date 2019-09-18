@@ -21,9 +21,9 @@ public class KatalonReportListener {
 
             boolean genereteHTML = bundleSettingStore.getBoolean("generateHTML", true);
             boolean genereteCSV = bundleSettingStore.getBoolean("generateCSV", true);
-            boolean genereteJUnit = bundleSettingStore.getBoolean("generateJUnit", true);
+            // boolean genereteJUnit = bundleSettingStore.getBoolean("generateJUnit", true);
             boolean generetePDF = bundleSettingStore.getBoolean("generatePDF", false);
-            if (!genereteHTML && !genereteCSV && !genereteJUnit && !generetePDF) {
+            if (!genereteHTML && !genereteCSV && !generetePDF) {
                 return;
             }
 
@@ -43,11 +43,11 @@ public class KatalonReportListener {
                 KeywordUtil.logInfo("CSV report generated");
             }
 
-            if (genereteJUnit) {
-                KeywordUtil.logInfo("Start generating JUnit report folder at: " + reportFolder + "...");
-                ReportWriterUtil.writeJUnitReport(suiteLogEntity, reportFolderFile);
-                KeywordUtil.logInfo("JUnit report generated");
-            }
+//            if (genereteJUnit) {
+//                KeywordUtil.logInfo("Start generating JUnit report folder at: " + reportFolder + "...");
+//                ReportWriterUtil.writeJUnitReport(suiteLogEntity, reportFolderFile);
+//                KeywordUtil.logInfo("JUnit report generated");
+//            }
 
             if (generetePDF) {
                 KeywordUtil.logInfo("Start generating PDF report folder at: " + reportFolder + "...");
