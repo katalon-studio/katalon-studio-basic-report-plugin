@@ -393,7 +393,7 @@
 										<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource(com.kms.katalon.core.pdf.ResourceUtil.getExistedAttachments($P{LOG_FOLDER}, $F{attachments}))]]></dataSourceExpression>
 									</datasetRun>
 									<jr:listContents height="28" width="368">
-										<image scaleImage="RealSize" hAlign="Center">
+										<image scaleImage="RealSize" hAlign="Center" isUsingCache="true" onErrorType="Blank">
 											<reportElement x="0" y="0" width="368" height="28" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="a9247211-a6a1-444a-9eaa-5987ca97180b"/>
 											<imageExpression><![CDATA[(new File($F{_THIS}).isAbsolute()) ? ($F{_THIS}) : ($P{LOG_FOLDER} + java.io.File.separator + $F{_THIS})]]></imageExpression>
 										</image>
