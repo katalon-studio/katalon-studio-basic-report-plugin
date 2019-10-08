@@ -336,11 +336,13 @@ public class ReportWriterUtil {
 
     public static void writeSimpleHTMLReport(TestSuiteLogRecord suiteLogEntity, File logFolder)
             throws IOException, URISyntaxException {
-        List<ILogRecord> infoLogs = new ArrayList<ILogRecord>();
-        collectInfoLines(suiteLogEntity, infoLogs);
-        for (ILogRecord infoLog : infoLogs) {
-            infoLog.getParentLogRecord().removeChildRecord(infoLog);
-        }
+        // Remove Info Logs
+//        List<ILogRecord> infoLogs = new ArrayList<ILogRecord>();
+//        collectInfoLines(suiteLogEntity, infoLogs);
+//        for (ILogRecord infoLog : infoLogs) {
+//            infoLog.getParentLogRecord().removeChildRecord(infoLog);
+//        }
+        
         List<String> simpleStrings = new LinkedList<String>();
         JsSuiteModel simpleJsSuiteModel = new JsSuiteModel(suiteLogEntity, simpleStrings);
         StringBuilder simpleSbModel = simpleJsSuiteModel.toArrayString();
@@ -365,11 +367,13 @@ public class ReportWriterUtil {
         htmlSb.append(generateVars(strings, suiteLogEntity, sbModel));
         readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_CONTENT, htmlSb);
 
-        List<ILogRecord> infoLogs = new ArrayList<ILogRecord>();
-        collectInfoLines(suiteLogEntity, infoLogs);
-        for (ILogRecord infoLog : infoLogs) {
-            infoLog.getParentLogRecord().removeChildRecord(infoLog);
-        }
+        // Remove Info Logs
+//        List<ILogRecord> infoLogs = new ArrayList<ILogRecord>();
+//        collectInfoLines(suiteLogEntity, infoLogs);
+//        for (ILogRecord infoLog : infoLogs) {
+//            infoLog.getParentLogRecord().removeChildRecord(infoLog);
+//        }
+        
         strings = new LinkedList<String>();
         jsSuiteModel = new JsSuiteModel(suiteLogEntity, strings, filteredTestCases);
         sbModel = jsSuiteModel.toArrayString();
