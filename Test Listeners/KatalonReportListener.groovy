@@ -1,6 +1,5 @@
-import java.io.File;
-
 import com.kms.katalon.core.annotation.AfterTestSuite;
+import com.kms.katalon.core.annotation.BeforeTestSuite
 import com.kms.katalon.core.configuration.RunConfiguration;
 import com.kms.katalon.core.logging.model.TestSuiteLogRecord;
 import com.kms.katalon.core.reporting.ReportWriterUtil;
@@ -13,7 +12,7 @@ public class KatalonReportListener {
     @AfterTestSuite
     public void exportKatalonReports() {
         try {
-            KeywordUtil.logInfo("Deprecated Basic Report Plugin version. Please upgrade Katalon Studio to the latest version.");
+            KeywordUtil.logInfo("This Katalon Studio version has been deprecated. Please upgrade Katalon Studio to the latest version.");
             String reportFolder = RunConfiguration.getReportFolder();
             String projectDir = RunConfiguration.getProjectDir();
 
@@ -59,4 +58,9 @@ public class KatalonReportListener {
             KeywordUtil.markWarning(ExceptionsUtil.getStackTraceForThrowable(e));
         }
     }
+
+	@BeforeTestSuite
+	public void beforeExportKatalonReports() {
+		KeywordUtil.logInfo("This Katalon Studio version has been deprecated. Please upgrade Katalon Studio to the latest version.");
+	}
 }
