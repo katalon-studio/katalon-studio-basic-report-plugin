@@ -13,6 +13,7 @@ public class KatalonReportListener {
     @AfterTestSuite
     public void exportKatalonReports() {
         try {
+            KeywordUtil.logInfo("Deprecated Basic Report Plugin version. Please upgrade Katalon Studio to the latest version.");
             String reportFolder = RunConfiguration.getReportFolder();
             String projectDir = RunConfiguration.getProjectDir();
 
