@@ -20,4 +20,5 @@ build
 #Katalon
 Drivers/katalon_generated_*
 Libs
-settings/internal/com.kms.katalon.composer.testcase.properties
+settings
+Reports
