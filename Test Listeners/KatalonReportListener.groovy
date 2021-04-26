@@ -33,7 +33,7 @@ public class KatalonReportListener {
             File folderTemp = Files.createTempDirectory(reportFolderFile.getName() + "_").toFile();
             // rename temp folder to match with report folder         
             folderTemp = Files.move(folderTemp.toPath(), folderTemp.toPath().resolveSibling(reportFolderFile.getName())).toFile();
-            //
+
             FileUtils.copyDirectory(reportFolderFile, folderTemp);
             String folderTempString = folderTemp.getAbsolutePath();           
             
