@@ -7,6 +7,8 @@ import com.kms.katalon.core.reporting.ReportWriterUtil;
 import com.kms.katalon.core.setting.BundleSettingStore;
 import com.kms.katalon.core.util.KeywordUtil;
 import com.kms.katalon.core.util.internal.ExceptionsUtil;
+import java.nio.file.Files
+import org.apache.commons.io.FileUtils
 
 public class KatalonReportListener {
 
@@ -28,18 +30,24 @@ public class KatalonReportListener {
             }
 
             File reportFolderFile = new File(reportFolder);
-
-            TestSuiteLogRecord suiteLogEntity = ReportWriterUtil.generate(reportFolder);
+            File folderTemp = Files.createTempDirectory(reportFolderFile.getName() + "_").toFile();
+            // rename temp folder to match with report folder         
+            folderTemp = Files.move(folderTemp.toPath(), folderTemp.toPath().resolveSibling(reportFolderFile.getName())).toFile();
+            //
+            FileUtils.copyDirectory(reportFolderFile, folderTemp);
+            String folderTempString = folderTemp.getAbsolutePath();           
+            
+            TestSuiteLogRecord suiteLogEntity = ReportWriterUtil.generate(folderTempString);
 
             if (genereteHTML) {
                 KeywordUtil.logInfo("Start generating HTML report folder at: " + reportFolder + "...");
-                ReportWriterUtil.writeHtmlReport(suiteLogEntity, reportFolderFile);
+                ReportWriterUtil.writeHtmlReport(suiteLogEntity, folderTemp);
                 KeywordUtil.logInfo("HTML report generated");
             }
 
             if (genereteCSV) {
                 KeywordUtil.logInfo("Start generating CSV report folder at: " + reportFolder + "...");
-                ReportWriterUtil.writeCSVReport(suiteLogEntity, reportFolderFile);
+                ReportWriterUtil.writeCSVReport(suiteLogEntity, folderTemp);
                 KeywordUtil.logInfo("CSV report generated");
             }
 
@@ -51,9 +59,19 @@ public class KatalonReportListener {
 
             if (generetePDF) {
                 KeywordUtil.logInfo("Start generating PDF report folder at: " + reportFolder + "...");
-                ReportWriterUtil.writePdfReport(suiteLogEntity, reportFolderFile);
+                ReportWriterUtil.writePdfReport(suiteLogEntity, folderTemp);
                 KeywordUtil.logInfo("PDF report generated");
             }
+            
+            FileUtils.copyDirectory(folderTemp, reportFolderFile, new FileFilter() {
+                @Override
+                public boolean accept(File pathname) {
+                    String path = pathname.getAbsolutePath().toLowerCase();
+                    return path.contains(".csv") || path.contains(".html") || path.contains(".pdf");
+                }
+            });
+            FileUtils.deleteQuietly(folderTemp);       
+            FileUtils.forceDeleteOnExit(folderTemp);
         } catch (Exception e) {
             KeywordUtil.markWarning(ExceptionsUtil.getStackTraceForThrowable(e));
         }
