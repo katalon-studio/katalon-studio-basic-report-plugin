@@ -3,7 +3,7 @@ import java.io.File;
 import com.kms.katalon.core.annotation.AfterTestSuite;
 import com.kms.katalon.core.configuration.RunConfiguration;
 import com.kms.katalon.core.logging.model.TestSuiteLogRecord;
-import com.kms.katalon.core.reporting.ReportWriterUtil;
+import com.kms.katalon.core.reporting.basic.reporting.ReportWriterUtil;
 import com.kms.katalon.core.setting.BundleSettingStore;
 import com.kms.katalon.core.util.KeywordUtil;
 import com.kms.katalon.core.util.internal.ExceptionsUtil;
