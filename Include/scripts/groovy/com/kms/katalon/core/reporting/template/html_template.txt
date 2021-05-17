@@ -845,11 +845,6 @@ window.model = (function () {
         test.matchesNamePattern = function (pattern) {
             return util.Matcher(pattern).matchesAny([test.name, test.fullName]);
         };
-        test.variables = data.variables.names.reduce((acc, value, index)=> {
-    			acc[value] = data.variables.values[index];
-   			 return acc;
-			},{})
-		window.linh =  test.variables;
         return test;
     }
     function Keyword(data) {
@@ -1291,23 +1286,10 @@ window.testdata = function () {
             times: model.Times(times(statusElement)),
             tags: tags(element[5], strings),
             tag: strings.get(element[4]),
-            isChildrenLoaded: typeof(element[7]) !== 'number',
-            variables : transferVariable(element,strings)
+            isChildrenLoaded: typeof(element[7]) !== 'number'
         });
         lazyPopulateKeywordsFromFile(test, element[7], strings);
         return test;
-    }
-    function transferVariable(element,strings){
-    	name_arr = new Array();
-	value_arr = new Array();
-	for(let i = 0 ; i<element[8].length ; i++){
-		name_arr[i]=strings.get(element[8][i]);
-		value_arr[i]=strings.get(element[9][i]);
-	}
-	return{
-		names: name_arr,
-		values:value_arr
-	}
     }
     function createMessage(statusElement, strings) {
         return statusElement.length == 4 ? strings.get(statusElement[3]) : '';
