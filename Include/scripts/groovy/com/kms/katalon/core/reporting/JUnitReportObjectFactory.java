@@ -1,4 +1,4 @@
-package com.kms.katalon.core.reporting.basic.reporting;
+package com.kms.katalon.core.reporting;
 
 import java.io.File;
 import java.util.Arrays;
