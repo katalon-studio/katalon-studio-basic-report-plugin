@@ -1,4 +1,4 @@
-package com.kms.katalon.core.reporting.template;
+package com.kms.katalon.core.reporting.basic.reporting.template;
 
 public class ResourceLoader {
 

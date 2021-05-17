@@ -1,4 +1,4 @@
-package com.kms.katalon.core.reporting;
+package com.kms.katalon.core.reporting.basic.reporting;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,7 +40,7 @@ import com.kms.katalon.core.logging.model.TestStatus.TestStatusValue;
 import com.kms.katalon.core.pdf.TestSuitePdfGenerator;
 import com.kms.katalon.core.pdf.exception.JasperReportException;
 import com.kms.katalon.core.logging.model.TestSuiteLogRecord;
-import com.kms.katalon.core.reporting.template.ResourceLoader;
+import com.kms.katalon.core.reporting.basic.reporting.template.ResourceLoader;
 import com.kms.katalon.core.testdata.reader.CsvWriter;
 import com.kms.katalon.core.util.internal.DateUtil;
 

@@ -277,6 +277,17 @@ function addExecutionEnvironmentInfo(environment_info) {
           <th>Status:</th>
           <td><span class="${status.toLowerCase()}">${status}</span></td>
         </tr>
+        {{if !( variables && Object.keys(variables).length === 0 && variables.constructor === Object ) }}
+        <tr><th>Data:</th></tr>
+        
+		{{each(key,value) variables}}
+		<tr>
+		  <th>${key}</th>
+		  <td>${value}<td>
+		</tr>
+		{{/each}}
+		{{/if}}
+		
         {{if message()}}
         <tr>
           <th>Message:</th>
