@@ -848,7 +848,7 @@ window.model = (function () {
         test.variables = data.variables.names.reduce((acc, value, index)=> {
     			acc[value] = data.variables.values[index];
    			 return acc;
-			},{})
+			},{});
         return test;
     }
     function Keyword(data) {
