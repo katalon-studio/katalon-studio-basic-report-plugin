@@ -849,7 +849,6 @@ window.model = (function () {
     			acc[value] = data.variables.values[index];
    			 return acc;
 			},{})
-		window.linh =  test.variables;
         return test;
     }
     function Keyword(data) {
