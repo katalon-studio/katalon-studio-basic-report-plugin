@@ -330,7 +330,7 @@ public class ReportWriterUtil {
         File file = new File(folder, folder.getName() + ".csv");
         if (!file.exists()) {
             CsvWriter.writeCsvReport(suiteLogEntity, file,
-                Arrays.asList(suiteLogEntity.getChildRecords()));
+                Arrays.asList(suiteLogEntity.filterFinalTestCasesResult()));
         }
     }
 
