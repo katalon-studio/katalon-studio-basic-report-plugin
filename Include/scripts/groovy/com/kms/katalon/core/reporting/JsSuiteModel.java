@@ -118,8 +118,9 @@ public class JsSuiteModel extends JsModel {
 	private void initSummary(int[] totalFailsErrorsIncompletes) {
 		// Summary result
 		int totalChildCount = 0;
-		for (int index = 0; index < suiteLog.getChildRecords().length; index++) {
-		    if (suiteLog.getChildRecords()[index] instanceof TestCaseLogRecord) {
+		ILogRecord[] childLogRecords = suiteLog.filterFinalTestCasesResult();
+		for (int index = 0; index < childLogRecords.length; index++) {
+		    if (childLogRecords[index] instanceof TestCaseLogRecord) {
 		        totalChildCount++;
 		    }
 		}
