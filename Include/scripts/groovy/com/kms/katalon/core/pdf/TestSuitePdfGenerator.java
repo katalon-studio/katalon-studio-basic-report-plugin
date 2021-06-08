@@ -16,7 +16,7 @@ public class TestSuitePdfGenerator extends AbstractPdfReportGenerator {
 
     @Override
     protected ILogRecord[] getLogRecords() {
-        return fTestSuiteLogRecord.getChildRecords();
+        return fTestSuiteLogRecord.filterFinalTestCasesResult();
     }
 
     @Override
