@@ -598,7 +598,7 @@
 				<subreportParameter name="LOG_FOLDER">
 					<subreportParameterExpression><![CDATA[$P{TEST_SUITE}.getLogFolder()]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($P{TEST_SUITE}.getChildRecords())]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($P{TEST_SUITE}.filterFinalTestCasesResult())]]></dataSourceExpression>
 				<subreportExpression><![CDATA[net.sf.jasperreports.engine.JasperCompileManager.compileReport(com.kms.katalon.core.pdf.ResourceUtil.getResourceAsInputStream(com.kms.katalon.core.pdf.AbstractPdfReportGenerator.class, $P{TEST_CASE_TPL}))]]></subreportExpression>
 			</subreport>
 		</band>
