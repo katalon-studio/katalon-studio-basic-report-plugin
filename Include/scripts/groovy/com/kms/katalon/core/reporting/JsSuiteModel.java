@@ -22,12 +22,13 @@ public class JsSuiteModel extends JsModel {
 	private JsModel suiteKeyword; // Setup, Teardown
 	private JsModel sum;
 
-	public JsSuiteModel(TestSuiteLogRecord suiteLog, List<String> listStrings) {
-		super();
-		this.suiteLog = suiteLog;
-		this.listStrings = listStrings;
-        fFilteredTestCases = Arrays.asList(suiteLog.getChildRecords());
+    public JsSuiteModel(TestSuiteLogRecord suiteLog, List<String> listStrings) {
+        super();
+        this.suiteLog = suiteLog;
+        this.listStrings = listStrings;
+        fFilteredTestCases = Arrays.asList(suiteLog.filterFinalTestCasesResult());
     }
+
 
     public JsSuiteModel(TestSuiteLogRecord suiteLog, List<String> listStrings, List<ILogRecord> filteredTestCases) {
         super();
@@ -35,7 +36,7 @@ public class JsSuiteModel extends JsModel {
         this.listStrings = listStrings;
         fFilteredTestCases = filteredTestCases;
 	}
-
+    
 	private void init() {
 		if (listStrings.isEmpty()) {
 			listStrings.add(EMPTY_STRING);

@@ -15,3 +15,11 @@ Katalon Studio Report Plugin is a Custom Keyword Plugin that replaces for the cu
 
 ### Katalon Studio
 [Katalon Studio](https://www.katalon.com) is a free and complete automation testing solution for Web, Mobile, and API testing with modern methodologies (Data-Driven Testing, TDD/BDD, Page Object Model, etc.) as well as advanced integration (JIRA, qTest, Slack, CI, Katalon TestOps, etc.). Learn more about [Katalon Studio features](https://www.katalon.com/features/).
+
+### How to use
+* Download project.
+* Install gradle [here](https://gradle.org/releases/).
+> :warning: Gradle version must be 6 or lower.
+* Run command to install all dependencies.
+> gradle katalonCopyDependencies.
+* Open project with Katalon Studio and work normally.
