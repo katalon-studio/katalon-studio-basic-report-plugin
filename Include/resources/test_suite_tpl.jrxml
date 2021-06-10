@@ -419,7 +419,7 @@
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="New Dataset 1" uuid="a782267a-149d-4a07-9563-4d0f403ccdb0">
-						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($P{TEST_SUITE}.getChildRecords())]]></dataSourceExpression>
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($P{TEST_SUITE}.filterFinalTestCasesResult())]]></dataSourceExpression>
 					</datasetRun>
 					<jr:column width="30" uuid="4c7968cb-1999-4a2f-9598-359af2fac0ae">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
@@ -598,7 +598,7 @@
 				<subreportParameter name="LOG_FOLDER">
 					<subreportParameterExpression><![CDATA[$P{TEST_SUITE}.getLogFolder()]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($P{TEST_SUITE}.getChildRecords())]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($P{TEST_SUITE}.filterFinalTestCasesResult())]]></dataSourceExpression>
 				<subreportExpression><![CDATA[net.sf.jasperreports.engine.JasperCompileManager.compileReport(com.kms.katalon.core.pdf.ResourceUtil.getResourceAsInputStream(com.kms.katalon.core.pdf.AbstractPdfReportGenerator.class, $P{TEST_CASE_TPL}))]]></subreportExpression>
 			</subreport>
 		</band>

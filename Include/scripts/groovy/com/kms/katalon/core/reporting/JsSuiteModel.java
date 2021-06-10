@@ -81,7 +81,7 @@ public class JsSuiteModel extends JsModel {
 		int totalFail = 0;
 		int totalErr = 0;
 		int totalInComplete = 0;
-        for (ILogRecord testLogEntity : suiteLog.getChildRecords()) {
+        for (ILogRecord testLogEntity : suiteLog.filterFinalTestCasesResult()) {
 		    if (!(testLogEntity instanceof TestCaseLogRecord)) {
 		        continue;
 		    }
@@ -118,8 +118,9 @@ public class JsSuiteModel extends JsModel {
 	private void initSummary(int[] totalFailsErrorsIncompletes) {
 		// Summary result
 		int totalChildCount = 0;
-		for (int index = 0; index < suiteLog.getChildRecords().length; index++) {
-		    if (suiteLog.getChildRecords()[index] instanceof TestCaseLogRecord) {
+		ILogRecord[] childLogRecords = suiteLog.filterFinalTestCasesResult();
+		for (int index = 0; index < childLogRecords.length; index++) {
+		    if (childLogRecords[index] instanceof TestCaseLogRecord) {
 		        totalChildCount++;
 		    }
 		}
