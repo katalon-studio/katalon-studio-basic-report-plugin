@@ -2,6 +2,7 @@ import java.io.File;
 
 import com.kms.katalon.core.annotation.AfterTestSuite;
 import com.kms.katalon.core.configuration.RunConfiguration;
+import com.kms.katalon.core.context.TestSuiteContext
 import com.kms.katalon.core.logging.model.TestSuiteLogRecord;
 import com.kms.katalon.core.reporting.ReportWriterUtil;
 import com.kms.katalon.core.setting.BundleSettingStore;
@@ -13,8 +14,11 @@ import org.apache.commons.io.FileUtils
 public class KatalonReportListener {
 
     @AfterTestSuite
-    public void exportKatalonReports() {
+    public void exportKatalonReports(TestSuiteContext testSuiteContext) {
         try {
+            if (testSuiteContext.getStatus().equals("INCOMPLETE")) {
+                return;
+            }      
             String reportFolder = RunConfiguration.getReportFolder();
             String projectDir = RunConfiguration.getProjectDir();
 
