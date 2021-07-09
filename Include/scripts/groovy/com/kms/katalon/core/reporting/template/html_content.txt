@@ -277,6 +277,12 @@ function addExecutionEnvironmentInfo(environment_info) {
           <th>Status:</th>
           <td><span class="${status.toLowerCase()}">${status}</span></td>
         </tr>
+        {{if retriedTimes != null && retriedTimes != "0"}}
+        <tr>
+          <th>Retried time(s):</th>
+          <td>{{html retriedTimes}}</td>
+        </tr>
+        {{/if}}
         {{if message()}}
         <tr>
           <th>Message:</th>
