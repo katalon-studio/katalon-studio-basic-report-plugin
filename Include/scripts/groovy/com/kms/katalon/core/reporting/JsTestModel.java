@@ -2,6 +2,7 @@ package com.kms.katalon.core.reporting;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -49,6 +50,8 @@ public class JsTestModel extends JsModel {
         props.add(new JsModelProperty("document", StringUtils.defaultString(testLog.getDescription()), listStrings));
         
         props.add(new JsModelProperty("tag", StringUtils.defaultString(testLog.getTag()), listStrings));
+        
+        props.add(new JsModelProperty("retriedTimes", getRetriedTimes(testLog), listStrings));
         // tags, skip this
         tags = new JsModel();
 
@@ -63,6 +66,14 @@ public class JsTestModel extends JsModel {
                         .getName()));
             }
         }
+    }
+    
+    private String getRetriedTimes(TestCaseLogRecord logRecord) {
+    	Map<String, String> properties = logRecord.getProperties();
+        if (properties != null && properties.containsKey("currentRetryCount")) {
+            return properties.get("currentRetryCount");
+        }
+        return "0";
     }
 
     private void initStatus() {
