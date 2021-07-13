@@ -179,7 +179,7 @@
 	<group name="Summary">
 		<groupExpression><![CDATA[$P{JASPER_REPORT}]]></groupExpression>
 		<groupHeader>
-			<band height="228" splitType="Stretch">
+			<band height="238" splitType="Stretch">
 				<staticText>
 					<reportElement positionType="Float" x="0" y="85" width="545" height="20" uuid="8c9d2c4d-d2bd-459e-bfb5-5bd04127b35d"/>
 					<textElement verticalAlignment="Middle">
@@ -294,42 +294,42 @@
 					<text><![CDATA[Execution Environment]]></text>
 				</staticText>
 				<staticText>
-					<reportElement positionType="Float" x="30" y="188" width="90" height="14" uuid="7214a304-0a5e-4260-baa2-c57e36cf0831"/>
+					<reportElement positionType="Float" x="30" y="200" width="90" height="14" uuid="7214a304-0a5e-4260-baa2-c57e36cf0831"/>
 					<textElement verticalAlignment="Middle">
 						<font size="9" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Start]]></text>
 				</staticText>
 				<staticText>
-					<reportElement positionType="Float" x="280" y="187" width="90" height="14" uuid="c33ac256-d389-4f52-b181-6be95f20a280"/>
+					<reportElement positionType="Float" x="280" y="199" width="90" height="14" uuid="c33ac256-d389-4f52-b181-6be95f20a280"/>
 					<textElement verticalAlignment="Middle">
 						<font size="9" isBold="true"/>
 					</textElement>
 					<text><![CDATA[End]]></text>
 				</staticText>
 				<textField>
-					<reportElement positionType="Float" x="120" y="188" width="160" height="14" uuid="39ffbb35-d034-4c95-802f-3a1750728760"/>
+					<reportElement positionType="Float" x="120" y="200" width="160" height="14" uuid="39ffbb35-d034-4c95-802f-3a1750728760"/>
 					<textElement verticalAlignment="Middle">
 						<font size="9"/>
 					</textElement>
 					<textFieldExpression><![CDATA[com.kms.katalon.core.util.internal.DateUtil.getDateTimeFormatted($P{TEST_SUITE}.getStartTime())]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement positionType="Float" x="370" y="187" width="175" height="14" uuid="72de1184-286f-4a2e-9f9f-3910ca887641"/>
+					<reportElement positionType="Float" x="370" y="199" width="175" height="14" uuid="72de1184-286f-4a2e-9f9f-3910ca887641"/>
 					<textElement verticalAlignment="Middle">
 						<font size="9"/>
 					</textElement>
 					<textFieldExpression><![CDATA[com.kms.katalon.core.util.internal.DateUtil.getDateTimeFormatted($P{TEST_SUITE}.getEndTime())]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement positionType="Float" x="30" y="202" width="90" height="14" uuid="39b1a494-8fb8-4b11-83d3-110419c24d9f"/>
+					<reportElement positionType="Float" x="30" y="214" width="90" height="14" uuid="39b1a494-8fb8-4b11-83d3-110419c24d9f"/>
 					<textElement verticalAlignment="Middle">
 						<font size="9" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Elapsed]]></text>
 				</staticText>
 				<textField>
-					<reportElement positionType="Float" x="120" y="202" width="425" height="14" uuid="ed291613-7140-4336-b976-4f2945e21d67">
+					<reportElement positionType="Float" x="120" y="214" width="425" height="14" uuid="ed291613-7140-4336-b976-4f2945e21d67">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
@@ -393,6 +393,20 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$P{TEST_SUITE}.getBrowser()]]></textFieldExpression>
 				</textField>
+				<textField>
+					<reportElement positionType="Float" x="120" y="181" width="160" height="13" uuid="60fc0d52-4bc6-4dc9-bb20-02eb195275a0"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{TEST_SUITE}.getTotalSkippedTestCases()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement positionType="Float" x="30" y="181" width="90" height="13" forecolor="#808080" uuid="d250d9e0-542c-47d1-b12e-4b0ecb064fb4"/>
+					<textElement verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Skipped]]></text>
+				</staticText>
 			</band>
 		</groupHeader>
 	</group>
@@ -411,10 +425,10 @@
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="54" splitType="Stretch">
+		<band height="70" splitType="Stretch">
 			<printWhenExpression><![CDATA[$V{REPORT_COUNT}.intValue() == 1]]></printWhenExpression>
 			<componentElement>
-				<reportElement key="table 4" positionType="Float" mode="Opaque" x="0" y="3" width="545" height="50" isPrintWhenDetailOverflows="true" uuid="579e3efc-e719-4189-bc36-fd5744783aea">
+				<reportElement key="table 4" positionType="Float" mode="Opaque" x="0" y="10" width="545" height="50" isPrintWhenDetailOverflows="true" uuid="579e3efc-e719-4189-bc36-fd5744783aea">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
@@ -589,9 +603,9 @@
 		</band>
 	</detail>
 	<summary>
-		<band height="50" splitType="Stretch">
+		<band height="53" splitType="Stretch">
 			<subreport isUsingCache="true" runToBottom="true">
-				<reportElement x="-25" y="0" width="593" height="50" uuid="bbd5c329-92c0-42ce-995c-7b18f66c9291"/>
+				<reportElement x="-25" y="0" width="593" height="53" uuid="bbd5c329-92c0-42ce-995c-7b18f66c9291"/>
 				<subreportParameter name="TEST_CASE_SUMMARY_TPL">
 					<subreportParameterExpression><![CDATA[$P{TEST_CASE_SUMMARY_TPL}]]></subreportParameterExpression>
 				</subreportParameter>
