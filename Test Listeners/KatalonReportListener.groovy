@@ -15,10 +15,7 @@ public class KatalonReportListener {
 
     @AfterTestSuite
     public void exportKatalonReports(TestSuiteContext testSuiteContext) {
-        try {
-            if (testSuiteContext.getStatus().equals("INCOMPLETE")) {
-                return;
-            }      
+        try {                 
             String reportFolder = RunConfiguration.getReportFolder();
             String projectDir = RunConfiguration.getProjectDir();
 
