@@ -839,6 +839,7 @@ window.model = (function () {
         test.tags = data.tags;
         test.tag = data.tag;
         test.message = data.message;
+        test.retriedTimes = data.retriedTimes;
         test.matchesTagPattern = function (pattern) {
             return containsTagPattern(test.tags, pattern);
         };
@@ -1269,7 +1270,7 @@ window.testdata = function () {
         return util.map(taglist, strings.get);
     }
     function createTest(parent, element, strings, index) {
-        var statusElement = element[6];
+        var statusElement = element[7];
         var test = model.Test({
             parent: parent,
             id: 't' + (index + 1),
@@ -1288,12 +1289,13 @@ window.testdata = function () {
                 return msg;
             },
             times: model.Times(times(statusElement)),
-            tags: tags(element[5], strings),
+            tags: tags(element[6], strings),
+			retriedTimes: strings.get(element[5]),
             tag: strings.get(element[4]),
-            isChildrenLoaded: typeof(element[7]) !== 'number',
+            isChildrenLoaded: typeof(element[8]) !== 'number'
             variables : transferVariable(element,strings)
         });
-        lazyPopulateKeywordsFromFile(test, element[7], strings);
+        lazyPopulateKeywordsFromFile(test, element[8], strings);
         return test;
     }
     function transferVariable(element,strings){

@@ -65,7 +65,7 @@ public class KatalonExportReportProvider implements ExportReportProvider {
             switch (formatType) {
                 case "HTML":
                     List<ILogRecord> testCaseLogRecords = new ArrayList<>();
-                    for (ILogRecord logRecord : testSuiteLogRecord.getChildRecords()) {
+                    for (ILogRecord logRecord : testSuiteLogRecord.filterFinalTestCasesResult()) {
                         if (logRecord instanceof TestCaseLogRecord) {
                             testCaseLogRecords.add(logRecord);
                         }
@@ -74,11 +74,11 @@ public class KatalonExportReportProvider implements ExportReportProvider {
                     return exportLocation;
                 case "CSV (Summary)":
                     ReportWriterUtil.writeLogRecordToCSVFile(testSuiteLogRecord, exportLocation,
-                            Arrays.asList(testSuiteLogRecord.getChildRecords()), false);
+                            Arrays.asList(testSuiteLogRecord.filterFinalTestCasesResult()), false);
                     return exportLocation;
                 case "CSV (Details)":
                     ReportWriterUtil.writeLogRecordToCSVFile(testSuiteLogRecord, exportLocation,
-                            Arrays.asList(testSuiteLogRecord.getChildRecords()), true);
+                            Arrays.asList(testSuiteLogRecord.filterFinalTestCasesResult()), true);
                     return exportLocation;
                 case "PDF":
                     TestSuitePdfGenerator pdfGenerator = new TestSuitePdfGenerator(testSuiteLogRecord);
