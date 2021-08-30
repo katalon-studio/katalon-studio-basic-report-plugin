@@ -1292,7 +1292,7 @@ window.testdata = function () {
             tags: tags(element[6], strings),
 			retriedTimes: strings.get(element[5]),
             tag: strings.get(element[4]),
-            isChildrenLoaded: typeof(element[8]) !== 'number'
+            isChildrenLoaded: typeof(element[8]) !== 'number',
             variables : transferVariable(element,strings)
         });
         lazyPopulateKeywordsFromFile(test, element[8], strings);
@@ -1300,15 +1300,15 @@ window.testdata = function () {
     }
     function transferVariable(element,strings){
     	name_arr = new Array();
-	value_arr = new Array();
-	for(let i = 0 ; i<element[8].length ; i++){
-		name_arr[i]=strings.get(element[8][i]);
-		value_arr[i]=strings.get(element[9][i]);
-	}
-	return{
-		names: name_arr,
-		values:value_arr
-	}
+		value_arr = new Array();
+		for(let i = 0 ; i<element[9].length ; i++){
+			name_arr[i]=strings.get(element[9][i]);
+			value_arr[i]=strings.get(element[10][i]);
+		}
+		return{
+			names: name_arr,
+			values:value_arr
+		}
     }
     function createMessage(statusElement, strings) {
         return statusElement.length == 4 ? strings.get(statusElement[3]) : '';
