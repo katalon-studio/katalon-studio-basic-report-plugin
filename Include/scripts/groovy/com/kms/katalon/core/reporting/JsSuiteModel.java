@@ -68,7 +68,7 @@ public class JsSuiteModel extends JsModel {
 	/**
 	 * @return total failures & errors & incomplete
 	 **/
-	private int[] initStatus() {
+    private int[] initStatus() {
 
         status = new JsModel();
 
@@ -87,7 +87,7 @@ public class JsSuiteModel extends JsModel {
             if (!(testLogEntity instanceof TestCaseLogRecord)) {
                 continue;
             }
-            TestStatus testStatus = testLogEntity.getStatus();  
+            TestStatus testStatus = testLogEntity.getStatus();
             if (testStatus != null && testStatus.getStatusValue() == TestStatusValue.FAILED) {
                 suiteStat = TestStatusValue.FAILED;
                 lastErrMsg = testLogEntity.getMessage();
@@ -96,13 +96,11 @@ public class JsSuiteModel extends JsModel {
                 suiteStat = TestStatusValue.ERROR;
                 lastErrMsg = testLogEntity.getMessage();
                 totalErr++;
-            }
-            else if (testStatus != null && (testStatus.getStatusValue() == TestStatusValue.INCOMPLETE)) {
+            } else if (testStatus != null && (testStatus.getStatusValue() == TestStatusValue.INCOMPLETE)) {
                 suiteStat = TestStatusValue.INCOMPLETE;
                 lastErrMsg = testLogEntity.getMessage();
                 totalInComplete++;
-            }
-            else if (testStatus != null && (testStatus.getStatusValue() == TestStatusValue.SKIPPED)) {
+            } else if (testStatus != null && (testStatus.getStatusValue() == TestStatusValue.SKIPPED)) {
                 lastErrMsg = testLogEntity.getMessage();
                 totalSkipped++;
             }
