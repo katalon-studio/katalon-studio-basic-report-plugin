@@ -283,24 +283,30 @@ function addExecutionEnvironmentInfo(environment_info) {
           <td>{{html retriedTimes}}</td>
         </tr>
         {{/if}}
-        {{if !( variables && Object.keys(variables).length === 0 && variables.constructor === Object ) }}
-        <tr><th>Data:</th></tr>
         
-		{{each(key,value) variables}}
-		<tr>
-		  <th>${key}</th>
-		  <td>${value}<td>
-		</tr>
-		{{/each}}
-		{{/if}}
-		
         {{if message()}}
         <tr>
           <th>Message:</th>
           <td class="message">{{html message()}}</td>
         </tr>
         {{/if}}
-      </table>
+        </table>
+        {{if !( variables && Object.keys(variables).length === 0 && variables.constructor === Object ) }}
+		    <div id="${id}-v" class="variable">
+		        <div class="element-header closed" onclick="toggleVariable('${id}-v')" title="DataBinding">
+		            <span style="color:#009900">DATA BINDING</span>
+		        
+		            {{each(key,value) variables}}
+		            <tr>
+		                <th>${key}</th>
+		                <td>${value}<td>
+		            </tr>
+		            {{/each}}
+		        </div>
+		    </div>
+		{{/if}}
+		
+      
     </div>
   </div>
 </script>

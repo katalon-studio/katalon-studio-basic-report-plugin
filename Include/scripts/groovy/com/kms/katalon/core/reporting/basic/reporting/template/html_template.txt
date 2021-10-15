@@ -235,7 +235,7 @@ th.stats-col-graph:hover {
     display: none;
     margin-left: 1.4em;
 }
-.suite, .test, .keyword {
+.suite, .test, .keyword, .variable {
     margin-left: -0.2em;
 }
 #s1, .suite > .children > .keyword {
@@ -456,6 +456,9 @@ a:link, a:visited {
 var LEVELS = {PASSED: 0, FAILED: 1, INFO: 2, ERROR: 3};
 function toggleSuite(suiteId) {
     toggleElement(suiteId, ['keyword', 'suite', 'test']);
+}
+function toggleVariable(varId){
+	toggleElement(testId,['variable']);
 }
 function toggleTest(testId) {
     toggleElement(testId, ['keyword']);

@@ -6,10 +6,13 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.kms.katalon.core.constants.StringConstants;
+import com.kms.katalon.core.helper.LogRecordHelper;
 import com.kms.katalon.core.logging.model.ILogRecord;
 import com.kms.katalon.core.logging.model.TestCaseLogRecord;
 import com.kms.katalon.core.logging.model.TestStatus;
 import com.kms.katalon.core.logging.model.TestStatus.TestStatusValue;
+import com.kms.katalon.core.util.internal.JsonUtil;
 import com.kms.katalon.core.logging.model.TestStepLogRecord;
 
 public class JsTestModel extends JsModel {
@@ -71,7 +74,10 @@ public class JsTestModel extends JsModel {
 			}
 		}
 		// Test Data
-		initVariables();
+		/// cho nay la minh lay duoc data binding roi ne
+		String rawDataBinding = LogRecordHelper.getProperty(testLog, StringConstants.EXECUTION_BINDING_VARIABLES);
+				props.add(new JsModelProperty(StringConstants.EXECUTION_BINDING_VARIABLES, rawDataBinding, listStrings));
+	;	initVariables();
 	}
 
 	private void initVariables() {
