@@ -235,7 +235,7 @@ th.stats-col-graph:hover {
     display: none;
     margin-left: 1.4em;
 }
-.suite, .test, .keyword, .variable {
+.suite, .test, .keyword, .dataBinding {
     margin-left: -0.2em;
 }
 #s1, .suite > .children > .keyword {
@@ -457,14 +457,18 @@ var LEVELS = {PASSED: 0, FAILED: 1, INFO: 2, ERROR: 3};
 function toggleSuite(suiteId) {
     toggleElement(suiteId, ['keyword', 'suite', 'test']);
 }
-function toggleVariable(varId){
-	toggleElement(testId,['variable']);
-}
 function toggleTest(testId) {
     toggleElement(testId, ['keyword']);
 }
 function toggleKeyword(kwId) {
     toggleElement(kwId, ['keyword', 'message']);
+}
+function toggleDataBinding(dbId) {
+	var element = $('#' + dbId);
+    var children = element.children('.children');
+    children.toggle(100, '', function () {
+        element.children('.element-header').toggleClass('closed');
+    });
 }
 function toggleElement(elementId, childrenNames) {
     var element = $('#' + elementId);
@@ -473,6 +477,12 @@ function toggleElement(elementId, childrenNames) {
         element.children('.element-header').toggleClass('closed');
     });
     populateChildren(elementId, children, childrenNames);
+    if (item.dataBindings != null && !item.dataBindings.isEmpty) {
+        var dataBindingElement = $('#' + item.dataBindings.id);
+        if (dataBindingElement.children('.element-header').hasClass('closed')) {
+            toggleDataBinding(item.dataBindings.id);
+        }
+    }
 }
 function populateChildren(elementId, childElement, childrenNames) {
     if (!childElement.hasClass('populated')) {
@@ -825,6 +835,11 @@ window.model = (function () {
             id: data.parent ? data.parent.id + '-' + data.id : data.id
         };
     }
+    function htmlDecode(input) {
+	  var doc = new DOMParser().parseFromString(input, "text/html");
+	  parts = doc.documentElement.textContent.replace('\n','');
+	  return JSON.parse(parts);
+	}  
     function Test(data) {
         var test = createModelObject(data);
         test.fullName = data.parent.fullName + '/' + test.name;
@@ -843,16 +858,15 @@ window.model = (function () {
         test.tag = data.tag;
         test.message = data.message;
         test.retriedTimes = data.retriedTimes;
+        var dataBindings = {'id': test.id + "-dataBinding", 'data': htmlDecode(data.dataBindings)};
+        dataBindings.isEmpty = dataBindings.data && Object.keys(dataBindings.data).length === 0 && Object.getPrototypeOf(dataBindings.data) === Object.prototype
+        test.dataBindings = dataBindings;
         test.matchesTagPattern = function (pattern) {
             return containsTagPattern(test.tags, pattern);
         };
         test.matchesNamePattern = function (pattern) {
             return util.Matcher(pattern).matchesAny([test.name, test.fullName]);
         };
-        test.variables = data.variables.names.reduce((acc, value, index)=> {
-    			acc[value] = data.variables.values[index];
-   			 return acc;
-			},{});
         return test;
     }
     function Keyword(data) {
@@ -1273,7 +1287,7 @@ window.testdata = function () {
         return util.map(taglist, strings.get);
     }
     function createTest(parent, element, strings, index) {
-        var statusElement = element[7];
+        var statusElement = element[8];
         var test = model.Test({
             parent: parent,
             id: 't' + (index + 1),
@@ -1291,27 +1305,15 @@ window.testdata = function () {
                 this.message = function () { return msg; };
                 return msg;
             },
+            dataBindings: strings.get(element[6]),
             times: model.Times(times(statusElement)),
-            tags: tags(element[6], strings),
+            tags: tags(element[7], strings),
 			retriedTimes: strings.get(element[5]),
             tag: strings.get(element[4]),
-            isChildrenLoaded: typeof(element[8]) !== 'number',
-            variables : transferVariable(element,strings)
+            isChildrenLoaded: typeof(element[9]) !== 'number'
         });
-        lazyPopulateKeywordsFromFile(test, element[8], strings);
+        lazyPopulateKeywordsFromFile(test, element[9], strings);
         return test;
-    }
-    function transferVariable(element,strings){
-    	name_arr = new Array();
-		value_arr = new Array();
-		for(let i = 0 ; i<element[9].length ; i++){
-			name_arr[i]=strings.get(element[9][i]);
-			value_arr[i]=strings.get(element[10][i]);
-		}
-		return{
-			names: name_arr,
-			values:value_arr
-		}
     }
     function createMessage(statusElement, strings) {
         return statusElement.length == 4 ? strings.get(statusElement[3]) : '';
