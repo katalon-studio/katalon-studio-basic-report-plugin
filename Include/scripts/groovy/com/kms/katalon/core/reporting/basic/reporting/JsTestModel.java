@@ -65,6 +65,10 @@ public class JsTestModel extends JsModel {
 		// Status
 		initStatus();
 
+		// Data Binding
+        String dataBindings = LogRecordHelper.getProperty(testLog, StringConstants.EXECUTION_BINDING_VARIABLES);
+        props.add(new JsModelProperty("dataBinding", dataBindings, listStrings));
+        
 		// Steps
 		steps = new ArrayList<JsStepModel>();
 		for (ILogRecord logRecord : testLog.getChildRecords()) {
@@ -73,26 +77,7 @@ public class JsTestModel extends JsModel {
 						caller == null ? "" : caller.getName()));
 			}
 		}
-		// Test Data
-		/// cho nay la minh lay duoc data binding roi ne
-		String rawDataBinding = LogRecordHelper.getProperty(testLog, StringConstants.EXECUTION_BINDING_VARIABLES);
-				props.add(new JsModelProperty(StringConstants.EXECUTION_BINDING_VARIABLES, rawDataBinding, listStrings));
-	;	initVariables();
-	}
-
-	private void initVariables() {
-		names = new JsModel();
-		values = new JsModel();
-		for (ILogRecord logRecord : testLog.getTestData()) {
-			String[] data = logRecord.getMessage().split(" = ");
-			if (data.length == 1) {
-				values.props.add(new JsModelProperty(data[0], "", listStrings));
-			} else {
-				values.props.add(new JsModelProperty(data[0], data[1], listStrings));
-			}
-			names.props.add(new JsModelProperty(data[0], data[0], listStrings));
-
-		}
+	
 	}
 
 	private void initStatus() {
@@ -139,30 +124,7 @@ public class JsTestModel extends JsModel {
 			}
 		}
 		sb.append(ARRAY_CLOSE);
-		sb.append(ARRAY_DLMT);
-
-		// Test Data
-		// Variable's Names
-		sb.append(ARRAY_OPEN);
-		for (int i = 0; i < names.props.size(); i++) {
-			sb.append(names.props.get(i).getPropertyValue());
-			if (i < names.props.size() - 1) {
-				sb.append(ARRAY_DLMT);
-			}
-		}
-		sb.append(ARRAY_CLOSE);
-		sb.append(ARRAY_DLMT);
-
-		// Variable's values
-		sb.append(ARRAY_OPEN);
-		for (int i = 0; i < values.props.size(); i++) {
-			sb.append(values.props.get(i).getPropertyValue());
-			if (i < values.props.size() - 1) {
-				sb.append(ARRAY_DLMT);
-			}
-		}
-		sb.append(ARRAY_CLOSE);
-
+		
 		// End test
 		sb.append(ARRAY_CLOSE);
 		return sb;
