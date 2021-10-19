@@ -524,9 +524,10 @@ function expandElement(item) {
     populateChildren(item.id, children, item.childrenNames);
     element.children('.element-header').removeClass('closed');
     if (item.dataBindings != null && !item.dataBindings.isEmpty) {
-    var dataBindingElement = $('#' + item.dataBindings.id);
-    if (dataBindingElement.children('.element-header').hasClass('closed')) {
-        toggleDataBinding(item.dataBindings.id);
+	    var dataBindingElement = $('#' + item.dataBindings.id);
+	    if (dataBindingElement.children('.element-header').hasClass('closed')) {
+	        toggleDataBinding(item.dataBindings.id);
+	    }
     }
 }
 function expandElementWithId(elementid) {
