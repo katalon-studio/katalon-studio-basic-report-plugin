@@ -477,12 +477,6 @@ function toggleElement(elementId, childrenNames) {
         element.children('.element-header').toggleClass('closed');
     });
     populateChildren(elementId, children, childrenNames);
-    if (item.dataBindings != null && !item.dataBindings.isEmpty) {
-        var dataBindingElement = $('#' + item.dataBindings.id);
-        if (dataBindingElement.children('.element-header').hasClass('closed')) {
-            toggleDataBinding(item.dataBindings.id);
-        }
-    }
 }
 function populateChildren(elementId, childElement, childrenNames) {
     if (!childElement.hasClass('populated')) {
@@ -529,6 +523,11 @@ function expandElement(item) {
     children.css({'display': 'block'});
     populateChildren(item.id, children, item.childrenNames);
     element.children('.element-header').removeClass('closed');
+    if (item.dataBindings != null && !item.dataBindings.isEmpty) {
+    var dataBindingElement = $('#' + item.dataBindings.id);
+    if (dataBindingElement.children('.element-header').hasClass('closed')) {
+        toggleDataBinding(item.dataBindings.id);
+    }
 }
 function expandElementWithId(elementid) {
     expandElement(window.testdata.findLoaded(elementid));
