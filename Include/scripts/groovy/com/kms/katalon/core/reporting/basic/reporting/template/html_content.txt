@@ -43,8 +43,8 @@ $(document).ready(function() {
 	$("#s1").find("div[id*='s1-t']").each(function(){
 		toggleTest(this.id);
 		if (!this.id.includes('dataBinding')) {
-            toggleTest(this.id);
-        }
+      toggleTest(this.id);
+    }
 	});
     
 });
