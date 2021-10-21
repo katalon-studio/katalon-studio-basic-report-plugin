@@ -65,10 +65,10 @@ public class JsTestModel extends JsModel {
 		// Status
 		initStatus();
 
-		// Data Binding
+        // Data Binding
         String dataBindings = LogRecordHelper.getProperty(testLog, StringConstants.EXECUTION_BINDING_VARIABLES);
         props.add(new JsModelProperty("dataBinding", dataBindings, listStrings));
-        
+
 		// Steps
 		steps = new ArrayList<JsStepModel>();
 		for (ILogRecord logRecord : testLog.getChildRecords()) {
