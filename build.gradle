@@ -35,6 +35,10 @@ shadowJar {
   from('Include/resources') {
     include '*.*'
   }
+  from('Include/scripts/groovy/com/kms/katalon/core/reporting/basic/reporting/template'){
+	  include '*.txt'
+	  into 'com/kms/katalon/core/reporting/basic/reporting/template'
+  }
 }
 
 groovydoc {

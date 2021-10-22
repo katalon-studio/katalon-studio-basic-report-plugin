@@ -28,7 +28,7 @@ import com.kms.katalon.core.pdf.TestSuitePdfGenerator;
 import com.kms.katalon.core.pdf.exception.JasperReportException;
 import com.kms.katalon.core.reporting.ExportReportProvider;
 import com.kms.katalon.core.reporting.ReportUtil;
-import com.kms.katalon.core.reporting.ReportWriterUtil;
+import com.kms.katalon.core.reporting.basic.reporting.ReportWriterUtil;
 import com.kms.katalon.core.util.internal.ExceptionsUtil;
 import com.kms.katalon.core.util.internal.JsonUtil;
 
