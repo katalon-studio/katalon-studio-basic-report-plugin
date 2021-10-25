@@ -336,7 +336,7 @@ th.stats-col-graph:hover {
     text-align: left;
     white-space: nowrap;
 }
-.keyword-metadata {
+.keyword-metadata, .databinding-metadata {
     font-size: 0.9em;
 }
 /* Custom styles for statistics */
