@@ -860,7 +860,7 @@ window.model = (function () {
         test.retriedTimes = data.retriedTimes;
         var dataBindings = {'id': test.id + "-dataBinding", 'data': htmlDecode(data.dataBindings)};
         dataBindings.isEmpty = dataBindings.data && Object.keys(dataBindings.data).length === 0 && Object.getPrototypeOf(dataBindings.data) === Object.prototype
-        test.dataBindings = dataBindings;
+        test.dataBindings = renderData(dataBindings);
         test.matchesTagPattern = function (pattern) {
             return containsTagPattern(test.tags, pattern);
         };
@@ -868,6 +868,16 @@ window.model = (function () {
             return util.Matcher(pattern).matchesAny([test.name, test.fullName]);
         };
         return test;
+    }
+    function renderData(dataBindings){
+    	for (const key of Object.keys(dataBindings.data)){
+		    if (key.length < 50) continue;
+		    const newKey = key.substring(0,47) + "...";
+		   	//Check duplicate key
+		    dataBindings.data[newKey] = dataBindings.data[key];
+		    delete dataBindings.data[key];
+		}
+      	return dataBindings;
     }
     function Keyword(data) {
         var kw = createModelObject(data);
