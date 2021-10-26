@@ -25,10 +25,6 @@ public class JsTestModel extends JsModel {
 
 	private JsModel status;
 
-	private JsModel values;
-
-	private JsModel names;
-
 	private List<JsStepModel> steps;
 
 	// This Test could be called by a Call step
