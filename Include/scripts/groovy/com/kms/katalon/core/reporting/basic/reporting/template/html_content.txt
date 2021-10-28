@@ -41,10 +41,9 @@ $(document).ready(function() {
 		toggleSuite('s1')
 	}
 	$("#s1").find("div[id*='s1-t']").each(function(){
-		toggleTest(this.id);
 		if (!this.id.includes('dataBinding')) {
-      toggleTest(this.id);
-    }
+      		toggleTest(this.id);
+    	}
 	});
     
 });
@@ -310,7 +309,7 @@ function addExecutionEnvironmentInfo(environment_info) {
         <table class="metadata databinding-metadata">
             {{each(key,value) data }}
 		            <tr>
-		                <th style="width:350px">${key}</th>
+		                <th style="width:350px">${displayReportName}</th>
 		                <td>${value}<td>
 		            </tr>
 		    {{/each}}
