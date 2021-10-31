@@ -307,7 +307,7 @@ function addExecutionEnvironmentInfo(environment_info) {
     </div>
     <div class="children">
         <table class="metadata databinding-metadata">
-            {{each(key,value) data }}
+            {{each data }}
 		            <tr>
 		                <th style="width:350px">${displayReportName}</th>
 		                <td>${value}<td>
