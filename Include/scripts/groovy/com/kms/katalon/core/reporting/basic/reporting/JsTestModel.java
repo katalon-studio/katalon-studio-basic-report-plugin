@@ -63,6 +63,9 @@ public class JsTestModel extends JsModel {
 
         // Data Binding
         String dataBindings = LogRecordHelper.getProperty(testLog, StringConstants.EXECUTION_BINDING_VARIABLES);
+        if (dataBindings == null) {
+            dataBindings = EMPTY_STRING_INDEX;
+        }
         props.add(new JsModelProperty("dataBinding", dataBindings, listStrings));
 
 		// Steps

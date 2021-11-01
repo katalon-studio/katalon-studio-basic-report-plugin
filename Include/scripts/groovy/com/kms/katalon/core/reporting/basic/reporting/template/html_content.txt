@@ -293,7 +293,7 @@ function addExecutionEnvironmentInfo(environment_info) {
         </tr>
         {{/if}}
         </table>
-     	{{if !dataBindings.isEmpty}}
+     	{{if (dataBindings && !dataBindings.isEmpty)}}
         	{{tmpl(dataBindings) '#dataBindingTemplate'}}
     	{{/if}}
     </div>
