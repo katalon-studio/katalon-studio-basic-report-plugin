@@ -41,10 +41,9 @@ $(document).ready(function() {
 		toggleSuite('s1')
 	}
 	$("#s1").find("div[id*='s1-t']").each(function(){
-		toggleTest(this.id);
 		if (!this.id.includes('dataBinding')) {
-      toggleTest(this.id);
-    }
+      		toggleTest(this.id);
+    	}
 	});
     
 });
@@ -294,8 +293,10 @@ function addExecutionEnvironmentInfo(environment_info) {
         </tr>
         {{/if}}
         </table>
-     	{{if !dataBindings.isEmpty}}
-        	{{tmpl(dataBindings) '#dataBindingTemplate'}}
+     	{{if (dataBindings != null && !dataBindings.isEmpty)}}
+     		{{if dataBindings.data.length > 0}}
+        		{{tmpl(dataBindings) '#dataBindingTemplate'}}
+        	{{/if}}
     	{{/if}}
     </div>
   </div>
@@ -308,9 +309,9 @@ function addExecutionEnvironmentInfo(environment_info) {
     </div>
     <div class="children">
         <table class="metadata databinding-metadata">
-            {{each(key,value) data }}
+            {{each data }}
 		            <tr>
-		                <th style="width:350px">${key}</th>
+		                <th style="width:350px">${displayReportName}</th>
 		                <td>${value}<td>
 		            </tr>
 		    {{/each}}
