@@ -92,7 +92,9 @@ h2 {
 .not_run {
     color:#808080 !important;
 }
-
+.skipped {
+    color:#808080 !important;
+}
 /* Top right header */
 #top-right-header {
     position: fixed;
@@ -1214,7 +1216,7 @@ window.testdata = function () {
     //var STATUSES = ['PASSED', 'FAILED', 'INFO', 'ERROR'];
     //var LEVELS = STATUSES;
     
-    var STATUSES = ['PASSED', 'FAILED', 'INCOMPLETE', 'ERROR', 'INFO', 'WARNING', 'NOT_RUN'];
+    var STATUSES = ['PASSED', 'FAILED', 'INCOMPLETE', 'ERROR', 'INFO', 'WARNING', 'NOT_RUN', 'SKIPPED'];
 
     var LEVELS = STATUSES;
     
@@ -1368,7 +1370,7 @@ window.testdata = function () {
 			sum_stats.totalIncomplete = stats[4];		
 		}
 		if(stats.length >= 6){
-			sum_stats.totalNotRun = stats[5];		
+			sum_stats.totalSkipped = stats[5];		
 		}
 		return sum_stats;
     }
@@ -1614,7 +1616,8 @@ $.template('suiteStatusMessageTemplate',
     '<span class="passed">${totalPassed} passed</span>' + ', ' +    
     '<span class="failed">${totalFailed} failed</span>' + ', ' +
 	'<span class="error">{{if totalError}}${totalError}{{else}}0{{/if}} error</span>' + ', ' +
-	'<span class="incomplete">{{if totalIncomplete}}${totalIncomplete}{{else}}0{{/if}} incomplete</span>'
+	'<span class="incomplete">{{if totalIncomplete}}${totalIncomplete}{{else}}0{{/if}} incomplete</span>'+ ', ' +
+    '<span class="skipped">{{if totalSkipped}}${totalSkipped}{{else}}0{{/if}} skipped</span>'
 );
 // For complete cross-browser experience..
 // http://www.quirksmode.org/js/events_order.html
