@@ -256,7 +256,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="9" isBold="true"/>
 					</textElement>
-					<text><![CDATA[OS]]></text>
+					<text><![CDATA[Local OS]]></text>
 				</staticText>
 				<staticText>
 					<reportElement positionType="Float" x="30" y="51" width="90" height="14" uuid="a74205c2-6f11-409e-91d9-a692d4653f43"/>
