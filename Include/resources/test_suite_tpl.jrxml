@@ -391,7 +391,7 @@
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font size="9"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{TEST_SUITE}.getBrowser()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{TEST_SUITE}.getRunData().get("browser")]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement positionType="Float" x="120" y="181" width="160" height="13" uuid="60fc0d52-4bc6-4dc9-bb20-02eb195275a0"/>
