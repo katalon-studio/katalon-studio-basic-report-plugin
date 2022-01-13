@@ -243,6 +243,10 @@ function addExecutionEnvironmentInfo(environment_info) {
     <div class="element-header closed" onclick="toggleTest('${id}')" title="{{html fullName}}">
       <span class="${status.toLowerCase()}">TEST CASE: </span>
       <span class="name">{{html name}}</span>
+      {{if iteration}}
+        <span class="slash-iteration">/<span>
+        <span class="iteration">{{html iteration}}</span>
+      {{/if}}
       <a class="expand" title="Expand this test fully"
          href="javascript:expandAllChildren('${id}')"
          onclick="stopPropagation(event)">Expand All</a>
