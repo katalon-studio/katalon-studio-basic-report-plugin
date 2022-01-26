@@ -45,7 +45,15 @@ import com.kms.katalon.core.testdata.reader.CsvWriter;
 import com.kms.katalon.core.util.internal.DateUtil;
 
 public class ReportWriterUtil {
-
+    
+    private static void appendReportConstantValues(List<String> constantValues, StringBuilder stringBuilder) {
+        for (String value : constantValues) {
+            stringBuilder.append(value);
+            stringBuilder.append(",");
+        }
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+    }
+    
     private static String generateVars(List<String> strings, TestSuiteLogRecord suiteLogEntity,
             StringBuilder model) throws IOException {
         StringBuilder sb = new StringBuilder();
@@ -55,6 +63,7 @@ public class ReportWriterUtil {
             if (line.equals(ResourceLoader.HTML_TEMPLATE_SUITE_MODEL_TOKEN)) {
                 sb.append(model);
             } else if (line.equals(ResourceLoader.HTML_TEMPLATE_STRINGS_CONSTANT_TOKEN)) {
+                appendReportConstantValues(strings, sb);
                 sb.append(StringUtils.join(strings, (",")));
             } else if (line.equals(ResourceLoader.HTML_TEMPLATE_EXEC_ENV_TOKEN)) {
                 StringBuilder envInfoSb = new StringBuilder();
