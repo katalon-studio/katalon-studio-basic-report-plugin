@@ -392,7 +392,7 @@ function addExecutionEnvironmentInfo(environment_info) {
   		<td>{{html host}}<td>
   	</tr>
   	<tr>
-  		<td>OS:<td>
+  		<td>Local OS:<td>
   		<td>{{html os}}<td>
   	</tr>
   	<tr>

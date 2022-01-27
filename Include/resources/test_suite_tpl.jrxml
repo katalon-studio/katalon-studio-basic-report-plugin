@@ -256,7 +256,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="9" isBold="true"/>
 					</textElement>
-					<text><![CDATA[OS]]></text>
+					<text><![CDATA[Local OS]]></text>
 				</staticText>
 				<staticText>
 					<reportElement positionType="Float" x="30" y="51" width="90" height="14" uuid="a74205c2-6f11-409e-91d9-a692d4653f43"/>
@@ -391,7 +391,7 @@
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font size="9"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{TEST_SUITE}.getBrowser()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{TEST_SUITE}.getRunData().get("browser")]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement positionType="Float" x="120" y="181" width="160" height="13" uuid="60fc0d52-4bc6-4dc9-bb20-02eb195275a0"/>
