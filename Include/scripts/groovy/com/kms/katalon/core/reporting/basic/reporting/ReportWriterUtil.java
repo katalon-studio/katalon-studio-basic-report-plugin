@@ -45,16 +45,8 @@ import com.kms.katalon.core.testdata.reader.CsvWriter;
 import com.kms.katalon.core.util.internal.DateUtil;
 
 public class ReportWriterUtil {
-    
-    private static void appendReportConstantValues(List<String> constantValues, StringBuilder stringBuilder) {
-        for (String value : constantValues) {
-            stringBuilder.append(value);
-            stringBuilder.append(",");
-        }
-        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-    }
-    
-    private static String generateVars(List<String> strings, TestSuiteLogRecord suiteLogEntity,
+
+    private static StringBuilder generateVars(List<String> strings, TestSuiteLogRecord suiteLogEntity,
             StringBuilder model) throws IOException {
         StringBuilder sb = new StringBuilder();
         List<String> lines = IOUtils
@@ -63,7 +55,7 @@ public class ReportWriterUtil {
             if (line.equals(ResourceLoader.HTML_TEMPLATE_SUITE_MODEL_TOKEN)) {
                 sb.append(model);
             } else if (line.equals(ResourceLoader.HTML_TEMPLATE_STRINGS_CONSTANT_TOKEN)) {
-                appendReportConstantValues(strings, sb);
+                sb.append(StringUtils.join(strings, (",")));
             } else if (line.equals(ResourceLoader.HTML_TEMPLATE_EXEC_ENV_TOKEN)) {
                 StringBuilder envInfoSb = new StringBuilder();
                 envInfoSb.append("{");
@@ -94,7 +86,7 @@ public class ReportWriterUtil {
                 sb.append("\n");
             }
         }
-        return sb.toString();
+        return sb;
     }
 
     public static String getOs() {
@@ -281,13 +273,17 @@ public class ReportWriterUtil {
 
     public static File writeTSCollectionHTMLReport(String reportTitle, String tsReportsJson, File destDir)
             throws IOException, URISyntaxException {
-        String template = readFileToStringBuilder(ResourceLoader.HTML_COLLECTION_INDEX_TEMPLATE);
+        StringBuilder htmlSb = new StringBuilder();
+        readFileToStringBuilder(ResourceLoader.HTML_COLLECTION_INDEX_TEMPLATE, htmlSb);
+        String template = htmlSb.toString();
         template = StringUtils.replace(template, "REPORT_TITLE", reportTitle);
         template = StringUtils.replace(template, "TEST_SUITE_REPORT_LIST", tsReportsJson);
         File indexFile = new File(destDir, "index.html");
         FileUtils.writeStringToFile(indexFile, template, StringConstants.DF_CHARSET);
 
-        template = readFileToStringBuilder(ResourceLoader.HTML_COLLECTION_FRAME_TEMPLATE);
+        htmlSb = new StringBuilder();
+        readFileToStringBuilder(ResourceLoader.HTML_COLLECTION_FRAME_TEMPLATE, htmlSb);
+        template = htmlSb.toString();
         template = StringUtils.replace(template, "REPORT_TITLE", reportTitle);
         template = StringUtils.replace(template, "TEST_SUITE_REPORT_LIST", tsReportsJson);
         FileUtils.writeStringToFile(new File(destDir, "index-frame-view.html"), template, StringConstants.DF_CHARSET);
@@ -296,34 +292,38 @@ public class ReportWriterUtil {
 
     public static void writeHtmlReport(TestSuiteLogRecord suiteLogEntity, File logFolder)
             throws IOException, URISyntaxException {
-        File destFile = new File(logFolder, logFolder.getName() + ".html");
-        prepareHtmlContent(suiteLogEntity, destFile);
+        StringBuilder htmlSb = prepareHtmlContent(suiteLogEntity);
+
+        // Write main HTML Report
+        FileUtils.writeStringToFile(new File(logFolder, logFolder.getName() + ".html"), htmlSb.toString(),
+                StringConstants.DF_CHARSET);
     }
 
-    private static void prepareHtmlContent(TestSuiteLogRecord suiteLogEntity, File destFile)
+    private static StringBuilder prepareHtmlContent(TestSuiteLogRecord suiteLogEntity)
             throws IOException, URISyntaxException {
         List<String> strings = new ArrayList<String>();
 
         JsSuiteModel jsSuiteModel = new JsSuiteModel(suiteLogEntity, strings);
         StringBuilder sbModel = jsSuiteModel.toArrayString();
 
-        FileUtils.writeStringToFile(destFile,
-                readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_FILE), StringConstants.DF_CHARSET);
-        FileUtils.writeStringToFile(destFile,
-                generateVars(strings, suiteLogEntity, sbModel), StringConstants.DF_CHARSET, true);
-        FileUtils.writeStringToFile(destFile,
-                readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_CONTENT), StringConstants.DF_CHARSET, true);
+        StringBuilder htmlSb = new StringBuilder();
+        readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_FILE, htmlSb);
+        htmlSb.append(generateVars(strings, suiteLogEntity, sbModel));
+        readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_CONTENT, htmlSb);
+        return htmlSb;
     }
 
     public static void writeHtmlReportAppendHashCodeToName(TestSuiteLogRecord suiteLogEntity, File logFolder,
             int reportDirLocationHashCode) throws IOException, URISyntaxException {
-        File destFile = new File(logFolder, logFolder.getName() + reportDirLocationHashCode + ".html");
-        prepareHtmlContent(suiteLogEntity, destFile);
+        StringBuilder htmlSb = prepareHtmlContent(suiteLogEntity);
+
+        FileUtils.writeStringToFile(new File(logFolder, logFolder.getName() + reportDirLocationHashCode + ".html"),
+                htmlSb.toString(), StringConstants.DF_CHARSET);
     }
 
     public static void writeExecutionUUIDToFile(String UUID, File logFolder) throws IOException, URISyntaxException {
         FileUtils.writeStringToFile(new File(logFolder, "execution.uuid"),
-        		UUID, StringConstants.DF_CHARSET);
+                UUID, StringConstants.DF_CHARSET);
     }
 
     public static void writeCSVReport(TestSuiteLogRecord suiteLogEntity, File folder) throws IOException {
@@ -346,29 +346,42 @@ public class ReportWriterUtil {
         List<String> simpleStrings = new LinkedList<String>();
         JsSuiteModel simpleJsSuiteModel = new JsSuiteModel(suiteLogEntity, simpleStrings);
         StringBuilder simpleSbModel = simpleJsSuiteModel.toArrayString();
-        
-        File destSimpleFile = new File(logFolder, "Report.html");
-        FileUtils.writeStringToFile(destSimpleFile, readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_FILE),
+        StringBuilder simpleHtmlSb = new StringBuilder();
+        readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_FILE, simpleHtmlSb);
+        simpleHtmlSb.append(generateVars(simpleStrings, suiteLogEntity, simpleSbModel));
+        readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_CONTENT, simpleHtmlSb);
+        FileUtils.writeStringToFile(new File(logFolder, "Report.html"), simpleHtmlSb.toString(),
                 StringConstants.DF_CHARSET);
-        FileUtils.writeStringToFile(destSimpleFile, generateVars(simpleStrings, suiteLogEntity, simpleSbModel),
-                StringConstants.DF_CHARSET, true);
-        FileUtils.writeStringToFile(destSimpleFile, readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_CONTENT),
-                StringConstants.DF_CHARSET, true);
     }
 
     public static void writeLogRecordToHTMLFile(TestSuiteLogRecord suiteLogEntity, File destFile,
             List<ILogRecord> filteredTestCases) throws IOException, URISyntaxException {
 
         List<String> strings = new LinkedList<String>();
-        JsSuiteModel jsSuiteModel = new JsSuiteModel(suiteLogEntity, strings, filteredTestCases);
+
+        JsSuiteModel jsSuiteModel = new JsSuiteModel(suiteLogEntity, strings);
         StringBuilder sbModel = jsSuiteModel.toArrayString();
 
-        FileUtils.writeStringToFile(destFile, readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_FILE),
-                StringConstants.DF_CHARSET);
-        FileUtils.writeStringToFile(destFile, generateVars(strings, suiteLogEntity, sbModel),
-                StringConstants.DF_CHARSET, true);
-        FileUtils.writeStringToFile(destFile, readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_CONTENT),
-                StringConstants.DF_CHARSET, true);
+        StringBuilder htmlSb = new StringBuilder();
+        readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_FILE, htmlSb);
+        htmlSb.append(generateVars(strings, suiteLogEntity, sbModel));
+        readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_CONTENT, htmlSb);
+
+        // Remove Info Logs
+//        List<ILogRecord> infoLogs = new ArrayList<ILogRecord>();
+//        collectInfoLines(suiteLogEntity, infoLogs);
+//        for (ILogRecord infoLog : infoLogs) {
+//            infoLog.getParentLogRecord().removeChildRecord(infoLog);
+//        }
+        
+        strings = new LinkedList<String>();
+        jsSuiteModel = new JsSuiteModel(suiteLogEntity, strings, filteredTestCases);
+        sbModel = jsSuiteModel.toArrayString();
+        htmlSb = new StringBuilder();
+        readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_FILE, htmlSb);
+        htmlSb.append(generateVars(strings, suiteLogEntity, sbModel));
+        readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_CONTENT, htmlSb);
+        FileUtils.writeStringToFile(destFile, htmlSb.toString(), StringConstants.DF_CHARSET);
     }
 
     public static List<XmlLogRecord> getAllLogRecords(String logFolder)
@@ -386,9 +399,8 @@ public class ReportWriterUtil {
         return generate(logFolder, new NullProgressMonitor());
     }
 
-    private static String readFileToStringBuilder(String fileName)
+    private static void readFileToStringBuilder(String fileName, StringBuilder sb)
             throws IOException, URISyntaxException {
-    	StringBuilder sb = new StringBuilder();
         String path = ResourceLoader.class.getProtectionDomain().getCodeSource().getLocation().getFile();
         path = URLDecoder.decode(path, "utf-8");
         File jarFile = new File(path);
@@ -415,6 +427,5 @@ public class ReportWriterUtil {
             InputStream is = (InputStream) ResourceLoader.class.getResource(fileName).getContent();
             sb.append(IOUtils.toString(is, "UTF-8"));
         }
-        return sb.toString();
     }
 }
