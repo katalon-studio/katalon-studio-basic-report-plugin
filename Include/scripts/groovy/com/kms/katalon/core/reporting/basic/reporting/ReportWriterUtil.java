@@ -64,7 +64,6 @@ public class ReportWriterUtil {
                 sb.append(model);
             } else if (line.equals(ResourceLoader.HTML_TEMPLATE_STRINGS_CONSTANT_TOKEN)) {
                 appendReportConstantValues(strings, sb);
-                sb.append(StringUtils.join(strings, (",")));
             } else if (line.equals(ResourceLoader.HTML_TEMPLATE_EXEC_ENV_TOKEN)) {
                 StringBuilder envInfoSb = new StringBuilder();
                 envInfoSb.append("{");
