@@ -22,4 +22,4 @@ Drivers/katalon_generated_*
 Libs
 settings
 Reports
-*.prj
+**.prj
