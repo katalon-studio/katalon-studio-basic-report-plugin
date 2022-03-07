@@ -264,10 +264,12 @@ th.stats-col-graph:hover {
     font-weight: bold;
 }
 .slash-iteration {
-    color: #808080 !important;
+    color: #000000 !important;
+    font-weight: bold;
 }
 .iteration {
-    color: #808080 !important;
+    color: #000000 !important;
+    font-weight: bold;
 }
 .expand {
     float: right;
