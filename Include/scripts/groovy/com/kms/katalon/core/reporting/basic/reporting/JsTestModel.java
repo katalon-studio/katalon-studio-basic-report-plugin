@@ -58,6 +58,9 @@ public class JsTestModel extends JsModel {
 		// tags, skip this
 		tags = new JsModel();
 
+		// Iteration
+		props.add(new JsModelProperty("iteration", testLog.getIterationVariableValue(), listStrings));
+		
 		// Status
 		initStatus();
 
