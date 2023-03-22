@@ -48,10 +48,10 @@ groovydoc {
 
 dependencies {
   compile 'commons-javaflow:commons-javaflow:20060411'
-  compile 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
-  compile('net.sf.jasperreports:jasperreports:6.20.0') {
+  compile('net.sf.jasperreports:jasperreports:6.2.2') {
     exclude group: 'org.springframework'
     exclude group: 'bouncycastle'
+    exclude group: 'org.codehaus.castor'
     exclude group: 'com.google.zxing'
     exclude group: 'com.fasterxml.jackson.core'
     exclude group: 'org.apache.lucene'
