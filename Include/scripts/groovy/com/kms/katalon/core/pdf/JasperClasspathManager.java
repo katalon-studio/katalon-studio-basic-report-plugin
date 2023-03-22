@@ -4,23 +4,26 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import net.sf.jasperreports.engine.DefaultJasperReportsContext;
+import net.sf.jasperreports.engine.JRPropertiesUtil;
 import org.apache.commons.io.FileUtils;
-
-import net.sf.jasperreports.engine.util.JRProperties;
 
 public class JasperClasspathManager {
     private static JasperClasspathManager _instance;
 
+    private final JRPropertiesUtil jrPropertiesUtil;
+
     public static final String TEMP_DIR = System.getProperty("java.io.tmpdir") + File.separator + "Katalon";
 
-    public static final String CLASSPATH_PROPERTY = "net.sf.jasperreports.compiler.classpath";
+    public static final String JASPER_REPORTS_COMPILER_CLASSPATH = "net.sf.jasperreports.compiler.classpath";
 
-    public static final String REPORT_TEMP_DIR_PROPERTY = "user.dir";
+    public static final String JASPER_REPORTS_COMPILER_TEMP_DIR = "net.sf.jasperreports.compiler.temp.dir";
 
     private boolean resolveClasspath;
 
     private JasperClasspathManager() {
         resolveClasspath = false;
+        jrPropertiesUtil = JRPropertiesUtil.getInstance(DefaultJasperReportsContext.getInstance());
     }
 
     public static JasperClasspathManager getInstance() {
@@ -32,7 +35,7 @@ public class JasperClasspathManager {
 
     public synchronized void modifySystemProperties() throws IOException, URISyntaxException {
         if (!resolveClasspath) {
-            JRProperties.setProperty("net.sf.jasperreports.awt.ignore.missing.font", "true");
+            jrPropertiesUtil.setProperty("net.sf.jasperreports.awt.ignore.missing.font", "true");
             modifyClasspathProperty();
             modifyTempDirProperty();
         }
@@ -40,7 +43,7 @@ public class JasperClasspathManager {
     }
 
     private void modifyTempDirProperty() {
-        JRProperties.setProperty(JRProperties.COMPILER_TEMP_DIR, TEMP_DIR + "/generated/pdf");
+        jrPropertiesUtil.setProperty(JASPER_REPORTS_COMPILER_TEMP_DIR, TEMP_DIR + "/generated/pdf");
     }
 
     private File getTempClasspathDir() {
@@ -61,6 +64,6 @@ public class JasperClasspathManager {
         for (File libFile : ResourceUtil.getFiles(getClass(), "lib", tempClasspathDir, true)) {
             classPathBuilder.append(libFile.getAbsolutePath()).append(";");
         }
-        JRProperties.setProperty(JRProperties.COMPILER_CLASSPATH, classPathBuilder.toString());
+        jrPropertiesUtil.setProperty(JASPER_REPORTS_COMPILER_CLASSPATH, classPathBuilder.toString());
     }
 }
