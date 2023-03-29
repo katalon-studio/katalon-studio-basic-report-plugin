@@ -48,7 +48,7 @@ groovydoc {
 
 dependencies {
   compile 'commons-javaflow:commons-javaflow:20060411'
-  compile('net.sf.jasperreports:jasperreports:6.2.0') {
+  compile('net.sf.jasperreports:jasperreports:6.2.2') {
     exclude group: 'org.springframework'
     exclude group: 'bouncycastle'
     exclude group: 'org.codehaus.castor'
