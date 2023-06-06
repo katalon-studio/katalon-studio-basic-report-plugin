@@ -2,7 +2,7 @@ name: Sonar Scan
 on: 
   push:
     branches:
-      - master
+      - sonar
 jobs:
   sonarqube:
     name: Build
