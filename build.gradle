@@ -1,7 +1,7 @@
 plugins {
   id 'java'
   id 'groovy'
-  id 'com.github.johnrengelman.shadow' version '4.0.4'
+  id 'com.github.johnrengelman.shadow' version '8.1.1'
   id "com.katalon.gradle-plugin" version "0.0.7"
   id("org.sonarqube") version "4.0.0.2929"
 }
