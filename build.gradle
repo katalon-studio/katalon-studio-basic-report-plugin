@@ -8,7 +8,7 @@ plugins {
 
 sonar {
   properties {
-    property("sonar.projectKey", "katalon-studio-basic-report-plugin")
+    property("sonar.projectKey", "katalon-studio_katalon-studio-basic-report-plugin")
     property("sonar.organization", "katalon-studio")
     property("sonar.sources", 'Include/scripts/groovy')
   }
