@@ -62,4 +62,5 @@ dependencies {
   }
   compile 'dom4j:dom4j:1.6.1'
   compile 'net.sf.jasperreports:jasperreports-fonts:6.0.0'
+  compile 'commons-collections:commons-collections:3.2.2'
 }
