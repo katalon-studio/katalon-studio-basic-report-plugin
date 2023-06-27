@@ -59,5 +59,6 @@ dependencies {
     exclude group: 'org.olap4j'
     exclude group: 'xml-apis'
   }
+  compile 'dom4j:dom4j:1.6.1'
   compile 'net.sf.jasperreports:jasperreports-fonts:6.0.0'
 }
