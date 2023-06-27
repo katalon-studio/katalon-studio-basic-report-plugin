@@ -28,6 +28,6 @@ jobs:
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
       with:
-        gradle-version: 7.0
+        gradle-version: 8.6.1
     - name: Sonar scan
       run:  gradle sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.verbose=true
