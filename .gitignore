@@ -22,3 +22,6 @@ Drivers/katalon_generated_*
 Libs
 settings
 Reports
+
+#Sonar
+.scannerwork

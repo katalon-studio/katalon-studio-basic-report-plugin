@@ -20,12 +20,10 @@ jobs:
         gradle-version: 6.7
     - name: Copy Dependencies
       run: gradle katalonCopyDependencies
-    - name: Setup Java
-      uses: actions/setup-java@v3
-      with:
-        distribution: temurin
-        java-version: '11'
-    - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
-    - name: Sonar scan
-      run:  gradle sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.verbose=true
+    - name: Plugin Package
+      run: gradle katalonPluginPackage
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
