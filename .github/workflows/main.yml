@@ -20,6 +20,12 @@ jobs:
         gradle-version: 6.7
     - name: Copy Dependencies
       run: gradle katalonCopyDependencies
+    - name: Copy Libs
+      run: |
+        docker create --name tmp katalonstudio/katalon
+        docker cp tmp:/opt/katalonstudio/plugins/. ./Libs
+        docker cp tmp:/opt/katalonstudio/configuration/resources/lib/. ./Libs
+        docker rm tmp
     - name: Plugin Package
       run: gradle katalonPluginPackage
     - name: SonarCloud Scan

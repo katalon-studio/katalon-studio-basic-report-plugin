@@ -60,7 +60,6 @@ dependencies {
     exclude group: 'xml-apis'
   }
   compile 'net.sf.jasperreports:jasperreports-fonts:6.0.0'
-  // TODO how to externalize these jar files for a complete indenpendent build?
-  compileOnly(fileTree('/Applications/Katalon Studio.app/Contents/Eclipse/plugins') { include('*.jar') })
-  compileOnly(fileTree('/Applications/Katalon Studio.app/Contents/Eclipse/configuration/resources/lib') { include('*.jar') })
+  compileOnly(fileTree('./Libs') { include('*.jar') })
+  compileOnly(fileTree('./Drivers') { include('*.jar') })
 }
