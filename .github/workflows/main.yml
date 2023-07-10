@@ -7,25 +7,16 @@ jobs:
   sonarqube:
     name: Build
     runs-on: ubuntu-latest
+    container:
+      image: katalonstudio/katalon
     steps:
     - uses: actions/checkout@v3
-    - name: Setup Java
-      uses: actions/setup-java@v3
-      with:
-        distribution: temurin
-        java-version: '8'
-    - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
-      with:
-        gradle-version: 6.7
     - name: Copy Dependencies
       run: gradle katalonCopyDependencies
     - name: Copy Libs
       run: |
-        docker create --name tmp katalonstudio/katalon
-        docker cp tmp:/opt/katalonstudio/plugins/. ./Libs
-        docker cp tmp:/opt/katalonstudio/configuration/resources/lib/. ./Libs
-        docker rm tmp
+        mkdir -p ./Libs
+        cp -r /opt/katalonstudio/plugins/. /opt/katalonstudio/configuration/resources/lib/. ./Libs
     - name: Plugin Package
       run: gradle katalonPluginPackage
     - name: SonarCloud Scan
