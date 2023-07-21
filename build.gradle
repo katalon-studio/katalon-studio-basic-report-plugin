@@ -58,7 +58,7 @@ groovydoc {
 
 dependencies {
   implementation 'commons-javaflow:commons-javaflow:20060411'
-  implementation('net.sf.jasperreports:jasperreports:6.2.2') {
+  implementation('net.sf.jasperreports:jasperreports:6.20.5') {
     exclude group: 'org.springframework'
     exclude group: 'bouncycastle'
     exclude group: 'org.codehaus.castor'
@@ -69,5 +69,5 @@ dependencies {
     exclude group: 'org.olap4j'
     exclude group: 'xml-apis'
   }
-  implementation 'net.sf.jasperreports:jasperreports-fonts:6.0.0'
+  implementation 'net.sf.jasperreports:jasperreports-fonts:6.20.5'
 }
