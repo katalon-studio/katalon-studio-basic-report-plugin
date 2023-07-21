@@ -1,8 +1,8 @@
 plugins {
   id 'java'
   id 'groovy'
-  id 'com.github.johnrengelman.shadow' version '4.0.4'
-  id "com.katalon.gradle-plugin" version "0.0.7"
+  id 'com.github.johnrengelman.shadow' version '6.1.0'
+  id "com.katalon.gradle-plugin" version "0.1.1"
   id("org.sonarqube") version "4.0.0.2929"
 }
 
@@ -11,7 +11,7 @@ sonar {
     property("sonar.projectKey", "katalon-studio-basic-report-plugin")
     property("sonar.organization", "katalon-studio")
     property("sonar.host.url", "https://sonarcloud.io")
-    property("sonar.sources", "Include\scripts\groovy")
+    property("sonar.sources", "Include\\scripts\\groovy")
   }
 }
 
@@ -57,8 +57,8 @@ groovydoc {
 }
 
 dependencies {
-  compile 'commons-javaflow:commons-javaflow:20060411'
-  compile('net.sf.jasperreports:jasperreports:6.2.2') {
+  implementation 'commons-javaflow:commons-javaflow:20060411'
+  implementation('net.sf.jasperreports:jasperreports:6.2.2') {
     exclude group: 'org.springframework'
     exclude group: 'bouncycastle'
     exclude group: 'org.codehaus.castor'
@@ -69,5 +69,5 @@ dependencies {
     exclude group: 'org.olap4j'
     exclude group: 'xml-apis'
   }
-  compile 'net.sf.jasperreports:jasperreports-fonts:6.0.0'
+  implementation 'net.sf.jasperreports:jasperreports-fonts:6.0.0'
 }
