@@ -58,6 +58,7 @@ groovydoc {
 
 dependencies {
   implementation 'commons-javaflow:commons-javaflow:20060411'
+  implementation 'org.codehaus.groovy:groovy:3.0.17'
   implementation('net.sf.jasperreports:jasperreports:6.20.5') {
     exclude group: 'org.springframework'
     exclude group: 'bouncycastle'
