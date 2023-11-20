@@ -125,6 +125,13 @@ function addExecutionEnvironmentInfo(environment_info) {
                      $.tmpl('testEnvironmentInfoTemplate', environment_info));
 }
 
+function maskedText(text, masked) {
+  if (masked) {
+    return "*".repeat(text.length);
+  }
+  return text;
+}
+
 </script>
 
 <script type="text/x-jquery-tmpl" id="totalStatisticsRowTemplate">
@@ -316,7 +323,7 @@ function addExecutionEnvironmentInfo(environment_info) {
             {{each data }}
 		            <tr>
 		                <th title="${name}">${displayReportName}</th>
-		                <td>${value}<td>
+		                <td>{{html maskedText(value, masked)}}<td>
 		            </tr>
 		    {{/each}}
         </table>
