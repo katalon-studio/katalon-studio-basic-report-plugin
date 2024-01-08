@@ -19,6 +19,11 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.stream.XMLStreamException;
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.io.OutputStream;
+import java.io.FileOutputStream;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -37,15 +42,16 @@ import com.kms.katalon.core.logging.model.ILogRecord;
 import com.kms.katalon.core.logging.model.MessageLogRecord;
 import com.kms.katalon.core.logging.model.TestStatus;
 import com.kms.katalon.core.logging.model.TestStatus.TestStatusValue;
+import com.kms.katalon.core.logging.model.TestSuiteLogRecord;
 import com.kms.katalon.core.pdf.TestSuitePdfGenerator;
 import com.kms.katalon.core.pdf.exception.JasperReportException;
-import com.kms.katalon.core.logging.model.TestSuiteLogRecord;
 import com.kms.katalon.core.reporting.basic.reporting.template.ResourceLoader;
 import com.kms.katalon.core.testdata.reader.CsvWriter;
+import com.kms.katalon.core.util.KeywordUtil;
 import com.kms.katalon.core.util.internal.DateUtil;
 
 public class ReportWriterUtil {
-    
+
     private static void appendReportConstantValues(List<String> constantValues, StringBuilder stringBuilder) {
         for (String value : constantValues) {
             stringBuilder.append(value);
@@ -53,7 +59,17 @@ public class ReportWriterUtil {
         }
         stringBuilder.deleteCharAt(stringBuilder.length() - 1);
     }
-    
+
+    private static void appendReportConstantValuesWithWriter(List<String> constantValues, Writer writer) throws IOException {
+        int size = constantValues.size();
+        for (int i = 0; i < size; i++) {
+            writer.write(constantValues.get(i));
+            if (i < size - 1) {
+                writer.write(",");
+            }
+        }
+    }
+
     private static String generateVars(List<String> strings, TestSuiteLogRecord suiteLogEntity,
             StringBuilder model) throws IOException {
         StringBuilder sb = new StringBuilder();
@@ -95,6 +111,48 @@ public class ReportWriterUtil {
             }
         }
         return sb.toString();
+    }
+
+    private static void generateVarsWithWriter(List<String> strings, TestSuiteLogRecord suiteLogEntity, StringBuilder model, Writer writer)
+            throws IOException {
+        KeywordUtil.logInfo("GENERATE VARS WITH WRITER");
+        List<String> lines = IOUtils
+                .readLines(ResourceLoader.class.getResourceAsStream(ResourceLoader.HTML_TEMPLATE_VARS));
+        for (String line : lines) {
+            if (line.equals(ResourceLoader.HTML_TEMPLATE_SUITE_MODEL_TOKEN)) {
+                writer.write(model.toString());
+            } else if (line.equals(ResourceLoader.HTML_TEMPLATE_STRINGS_CONSTANT_TOKEN)) {
+                appendReportConstantValuesWithWriter(strings, writer);
+            } else if (line.equals(ResourceLoader.HTML_TEMPLATE_EXEC_ENV_TOKEN)) {
+                StringBuilder envInfoSb = new StringBuilder();
+                envInfoSb.append("{");
+                envInfoSb.append(String.format("\"host\" : \"%s\", ", suiteLogEntity.getHostName()));
+                envInfoSb.append(String.format("\"os\" : \"%s\", ", suiteLogEntity.getOs()));
+                envInfoSb.append(String.format("\"" + StringConstants.APP_VERSION + "\" : \"%s\", ",
+                        suiteLogEntity.getAppVersion()));
+                if (suiteLogEntity.getBrowser() != null && !suiteLogEntity.getBrowser().equals("")) {
+                    if (suiteLogEntity.getRunData().containsKey("browser")) {
+                        envInfoSb.append(
+                                String.format("\"browser\" : \"%s\",", suiteLogEntity.getRunData().get("browser")));
+                    } else {
+                        envInfoSb.append(String.format("\"browser\" : \"%s\",", suiteLogEntity.getBrowser()));
+                    }
+                }
+                if (suiteLogEntity.getDeviceName() != null && !suiteLogEntity.getDeviceName().equals("")) {
+                    envInfoSb.append(String.format("\"deviceName\" : \"%s\",", suiteLogEntity.getDeviceName()));
+                }
+                if (suiteLogEntity.getDeviceName() != null && !suiteLogEntity.getDeviceName().equals("")) {
+                    envInfoSb.append(String.format("\"devicePlatform\" : \"%s\",", suiteLogEntity.getDevicePlatform()));
+                }
+                envInfoSb.append("\"\" : \"\"");
+
+                envInfoSb.append("}");
+                writer.write(envInfoSb.toString());
+            } else {
+                writer.write(line);
+                writer.write("\n");
+            }
+        }
     }
 
     public static String getOs() {
@@ -148,14 +206,15 @@ public class ReportWriterUtil {
 
         writeSimpleHTMLReport(suiteLogEntity, logFolder);
 
-//        writeJsonReport(suiteLogEntity, logFolder);
+        // writeJsonReport(suiteLogEntity, logFolder);
 
         writeJUnitReport(suiteLogEntity, logFolder);
 
         writePdfReport(suiteLogEntity, logFolder);
     }
 
-    public static void writePdfReport(TestSuiteLogRecord suiteLogEntity, File logFolder) throws JasperReportException, IOException {
+    public static void writePdfReport(TestSuiteLogRecord suiteLogEntity, File logFolder)
+            throws JasperReportException, IOException {
         TestSuitePdfGenerator pdfGenerator = new TestSuitePdfGenerator(suiteLogEntity);
         File exportLocation = new File(logFolder, logFolder.getName() + ".pdf");
         pdfGenerator.exportToPDF(exportLocation.getAbsolutePath());
@@ -167,8 +226,6 @@ public class ReportWriterUtil {
             writeJUnitReport(testSuiteLogRecord, new File(logFolder));
         }
     }
-    
-    
 
     public static void writeJUnitReport(TestSuiteLogRecord suiteLogEntity, File logFolder)
             throws JAXBException, IOException {
@@ -258,26 +315,26 @@ public class ReportWriterUtil {
         marshaller.marshal(tss, new File(logFolder, "JUnit_Report.xml"));
     }
 
-//    public static void writeJsonReport(TestSuiteLogRecord suiteLogEntity, File logFolder) throws IOException {
-//        List<String> excludedFieldNames = Arrays.asList(suiteLogEntity.getJsonExcludedFields());
-//        ExclusionStrategy excludeFields = new ExclusionStrategy() {
-//
-//            @Override
-//            public boolean shouldSkipField(FieldAttributes paramFieldAttributes) {
-//                return excludedFieldNames.size() == 0 ? false
-//                        : excludedFieldNames.contains(paramFieldAttributes.getName());
-//            }
-//
-//            @Override
-//            public boolean shouldSkipClass(Class<?> paramClass) {
-//                return false;
-//            }
-//        };
-//        String json = new GsonBuilder().addSerializationExclusionStrategy(excludeFields)
-//                .create()
-//                .toJson(suiteLogEntity);
-//        FileUtils.writeStringToFile(new File(logFolder, "JSON_Report.json"), json, StringConstants.DF_CHARSET);
-//    }
+    // public static void writeJsonReport(TestSuiteLogRecord suiteLogEntity, File logFolder) throws IOException {
+    // List<String> excludedFieldNames = Arrays.asList(suiteLogEntity.getJsonExcludedFields());
+    // ExclusionStrategy excludeFields = new ExclusionStrategy() {
+    //
+    // @Override
+    // public boolean shouldSkipField(FieldAttributes paramFieldAttributes) {
+    // return excludedFieldNames.size() == 0 ? false
+    // : excludedFieldNames.contains(paramFieldAttributes.getName());
+    // }
+    //
+    // @Override
+    // public boolean shouldSkipClass(Class<?> paramClass) {
+    // return false;
+    // }
+    // };
+    // String json = new GsonBuilder().addSerializationExclusionStrategy(excludeFields)
+    // .create()
+    // .toJson(suiteLogEntity);
+    // FileUtils.writeStringToFile(new File(logFolder, "JSON_Report.json"), json, StringConstants.DF_CHARSET);
+    // }
 
     public static File writeTSCollectionHTMLReport(String reportTitle, String tsReportsJson, File destDir)
             throws IOException, URISyntaxException {
@@ -307,12 +364,14 @@ public class ReportWriterUtil {
         JsSuiteModel jsSuiteModel = new JsSuiteModel(suiteLogEntity, strings);
         StringBuilder sbModel = jsSuiteModel.toArrayString();
 
-        FileUtils.writeStringToFile(destFile,
-                readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_FILE), StringConstants.DF_CHARSET);
-        FileUtils.writeStringToFile(destFile,
-                generateVars(strings, suiteLogEntity, sbModel), StringConstants.DF_CHARSET, true);
-        FileUtils.writeStringToFile(destFile,
-                readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_CONTENT), StringConstants.DF_CHARSET, true);
+        System.out.println("----------------------------------------------------");
+        System.out.println("Start writing to file: " + destFile.getAbsolutePath());
+        try (OutputStream outputStream = new FileOutputStream(destFile);
+            Writer writer = new OutputStreamWriter(outputStream, StringConstants.DF_CHARSET)) {
+            writer.write(readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_FILE));
+            generateVarsWithWriter(strings, suiteLogEntity, sbModel, writer);
+            writer.write(readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_CONTENT));
+        }
     }
 
     public static void writeHtmlReportAppendHashCodeToName(TestSuiteLogRecord suiteLogEntity, File logFolder,
@@ -322,31 +381,29 @@ public class ReportWriterUtil {
     }
 
     public static void writeExecutionUUIDToFile(String UUID, File logFolder) throws IOException, URISyntaxException {
-        FileUtils.writeStringToFile(new File(logFolder, "execution.uuid"),
-        		UUID, StringConstants.DF_CHARSET);
+        FileUtils.writeStringToFile(new File(logFolder, "execution.uuid"), UUID, StringConstants.DF_CHARSET);
     }
 
     public static void writeCSVReport(TestSuiteLogRecord suiteLogEntity, File folder) throws IOException {
         File file = new File(folder, folder.getName() + ".csv");
         if (!file.exists()) {
-            CsvWriter.writeCsvReport(suiteLogEntity, file,
-                Arrays.asList(suiteLogEntity.filterFinalTestCasesResult()));
+            CsvWriter.writeCsvReport(suiteLogEntity, file, Arrays.asList(suiteLogEntity.filterFinalTestCasesResult()));
         }
     }
 
     public static void writeSimpleHTMLReport(TestSuiteLogRecord suiteLogEntity, File logFolder)
             throws IOException, URISyntaxException {
         // Remove Info Logs
-//        List<ILogRecord> infoLogs = new ArrayList<ILogRecord>();
-//        collectInfoLines(suiteLogEntity, infoLogs);
-//        for (ILogRecord infoLog : infoLogs) {
-//            infoLog.getParentLogRecord().removeChildRecord(infoLog);
-//        }
-        
+        // List<ILogRecord> infoLogs = new ArrayList<ILogRecord>();
+        // collectInfoLines(suiteLogEntity, infoLogs);
+        // for (ILogRecord infoLog : infoLogs) {
+        // infoLog.getParentLogRecord().removeChildRecord(infoLog);
+        // }
+
         List<String> simpleStrings = new LinkedList<String>();
         JsSuiteModel simpleJsSuiteModel = new JsSuiteModel(suiteLogEntity, simpleStrings);
         StringBuilder simpleSbModel = simpleJsSuiteModel.toArrayString();
-        
+
         File destSimpleFile = new File(logFolder, "Report.html");
         FileUtils.writeStringToFile(destSimpleFile, readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_FILE),
                 StringConstants.DF_CHARSET);
@@ -386,11 +443,11 @@ public class ReportWriterUtil {
         return generate(logFolder, new NullProgressMonitor());
     }
 
-    private static String readFileToStringBuilder(String fileName)
-            throws IOException, URISyntaxException {
-    	StringBuilder sb = new StringBuilder();
+    private static String readFileToStringBuilder(String fileName) throws IOException, URISyntaxException {
+        StringBuilder sb = new StringBuilder();
         String path = ResourceLoader.class.getProtectionDomain().getCodeSource().getLocation().getFile();
         path = URLDecoder.decode(path, "utf-8");
+        KeywordUtil.logInfo("path: " + path);
         File jarFile = new File(path);
         if (jarFile.isFile()) {
             JarFile jar = new JarFile(jarFile);
@@ -399,6 +456,7 @@ public class ReportWriterUtil {
                 JarEntry jarEntry = entries.nextElement();
                 String name = jarEntry.getName();
                 if (name.endsWith(fileName)) {
+                    KeywordUtil.logInfo("name: " + name);
                     StringBuilderWriter sbWriter = new StringBuilderWriter(new StringBuilder());
                     IOUtils.copy(jar.getInputStream(jarEntry), sbWriter);
                     sbWriter.flush();
