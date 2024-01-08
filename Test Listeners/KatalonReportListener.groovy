@@ -1,4 +1,7 @@
-import java.io.File;
+import java.nio.file.Files
+import java.nio.file.Path;
+
+import org.apache.commons.io.FileUtils
 
 import com.kms.katalon.core.annotation.AfterTestSuite;
 import com.kms.katalon.core.configuration.RunConfiguration;
@@ -8,19 +11,29 @@ import com.kms.katalon.core.reporting.basic.reporting.ReportWriterUtil;
 import com.kms.katalon.core.setting.BundleSettingStore;
 import com.kms.katalon.core.util.KeywordUtil;
 import com.kms.katalon.core.util.internal.ExceptionsUtil;
-import java.nio.file.Files
-import org.apache.commons.io.FileUtils
 
 public class KatalonReportListener {
+    public void copyDirectory(Path sourcePath, Path destinationPath) {
+        try {
+            Files.walk(sourcePath).forEach(source -> {
+                Path destination = destinationPath.resolve(sourcePath.relativize(source));
+                try {
+                    Files.copy(source, destination);
+                } catch (IOException e) {
+                }
+            });
+        } catch (IOException e) {
+        }
+    }
 
     @AfterTestSuite
     public void exportKatalonReports(TestSuiteContext testSuiteContext) {
-        try {                 
+        try {
             String reportFolder = RunConfiguration.getReportFolder();
             String projectDir = RunConfiguration.getProjectDir();
 
             BundleSettingStore bundleSettingStore = new BundleSettingStore(projectDir, "com.katalon.plugin.report",
-                    true);
+            true);
 
             boolean genereteHTML = bundleSettingStore.getBoolean("generateHTML", true);
             boolean genereteCSV = bundleSettingStore.getBoolean("generateCSV", true);
@@ -31,13 +44,15 @@ public class KatalonReportListener {
             }
 
             File reportFolderFile = new File(reportFolder);
+            KeywordUtil.logInfo("reportFolder: " + reportFolder);
             File folderTemp = Files.createTempDirectory(reportFolderFile.getName() + "_").toFile();
             // rename temp folder to match with report folder         
             folderTemp = Files.move(folderTemp.toPath(), folderTemp.toPath().resolveSibling(reportFolderFile.getName())).toFile();
 
-            FileUtils.copyDirectory(reportFolderFile, folderTemp);
-            String folderTempString = folderTemp.getAbsolutePath();           
-            
+            //FileUtils.copyDirectory(reportFolderFile, folderTemp);
+            copyDirectory(reportFolderFile.toPath(), folderTemp.toPath());
+            String folderTempString = folderTemp.getAbsolutePath();
+            KeywordUtil.logInfo("folderTempString: " + folderTempString);
             TestSuiteLogRecord suiteLogEntity = ReportWriterUtil.generate(folderTempString);
 
             if (genereteHTML) {
@@ -52,18 +67,18 @@ public class KatalonReportListener {
                 KeywordUtil.logInfo("CSV report generated");
             }
 
-//            if (genereteJUnit) {
-//                KeywordUtil.logInfo("Start generating JUnit report folder at: " + reportFolder + "...");
-//                ReportWriterUtil.writeJUnitReport(suiteLogEntity, reportFolderFile);
-//                KeywordUtil.logInfo("JUnit report generated");
-//            }
+            //            if (genereteJUnit) {
+            //                KeywordUtil.logInfo("Start generating JUnit report folder at: " + reportFolder + "...");
+            //                ReportWriterUtil.writeJUnitReport(suiteLogEntity, reportFolderFile);
+            //                KeywordUtil.logInfo("JUnit report generated");
+            //            }
 
             if (generetePDF) {
                 KeywordUtil.logInfo("Start generating PDF report folder at: " + reportFolder + "...");
                 ReportWriterUtil.writePdfReport(suiteLogEntity, folderTemp);
                 KeywordUtil.logInfo("PDF report generated");
             }
-            
+
             FileUtils.copyDirectory(folderTemp, reportFolderFile, new FileFilter() {
                 @Override
                 public boolean accept(File pathname) {
@@ -71,7 +86,7 @@ public class KatalonReportListener {
                     return path.contains(".csv") || path.contains(".html") || path.contains(".pdf");
                 }
             });
-            FileUtils.deleteQuietly(folderTemp);       
+            FileUtils.deleteQuietly(folderTemp);
             FileUtils.forceDeleteOnExit(folderTemp);
         } catch (Exception e) {
             KeywordUtil.markWarning(ExceptionsUtil.getStackTraceForThrowable(e));
