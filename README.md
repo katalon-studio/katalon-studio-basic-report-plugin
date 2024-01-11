@@ -19,7 +19,8 @@ Katalon Studio Report Plugin is a Custom Keyword Plugin that replaces for the cu
 ### How to use
 * Download project.
 * Install gradle [here](https://gradle.org/releases/).
-> :warning: Gradle version must be 6 or lower.
+> :warning: Gradle version must be greater than 6.1.0 .
+> :warning: Java version 17.
 * Run command to install all dependencies.
 > gradle katalonCopyDependencies
 * Open project with Katalon Studio and work normally.

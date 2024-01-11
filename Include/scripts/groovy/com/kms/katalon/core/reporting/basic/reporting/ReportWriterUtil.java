@@ -351,10 +351,11 @@ public class ReportWriterUtil {
         return indexFile;
     }
 
-    public static void writeHtmlReport(TestSuiteLogRecord suiteLogEntity, File logFolder)
+    public static File writeHtmlReport(TestSuiteLogRecord suiteLogEntity, File logFolder)
             throws IOException, URISyntaxException {
         File destFile = new File(logFolder, logFolder.getName() + ".html");
         prepareHtmlContent(suiteLogEntity, destFile);
+        return destFile;
     }
 
     private static void prepareHtmlContent(TestSuiteLogRecord suiteLogEntity, File destFile)

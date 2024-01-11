@@ -3,6 +3,7 @@ package com.kms.katalon.core.reporting.basic.reporting;
 import java.util.List;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class JsModelProperty {
 
@@ -42,12 +43,16 @@ public class JsModelProperty {
 	
 	private void appendAndEscapeString(List<String> listStrings, String string) {
 		if(listStrings != null){
-			listStrings.add(convertString(StringEscapeUtils.escapeHtml(StringEscapeUtils.escapeJava(string))));
+			String str = string;
+			if(!string.startsWith("data:image/png;base64,")) {
+				str = StringEscapeUtils.escapeHtml(StringEscapeUtils.escapeJava(string));
+			} 
+			listStrings.add(convertString(str));
 			valueIndex = listStrings.size() - 1; 
 		}
 	}
 	
     private static String convertString(String string) {
-        return "\"" + (string == null ? "" : string.equals("*") ? string : ("*" + string)) + "\"";
+        return "\"" + StringUtils.defaultString(string) + "\"";
     }
 }

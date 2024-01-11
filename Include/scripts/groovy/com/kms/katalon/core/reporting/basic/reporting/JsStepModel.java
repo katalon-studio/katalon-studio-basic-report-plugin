@@ -203,8 +203,14 @@ public class JsStepModel extends JsModel {
     }
 
     private String encodeFileContent(final File file) throws FileNotFoundException, Exception, IOException {
-        try (InputStream is = new FileInputStream(file)) {
+        InputStream is = null;
+        try {
+            is = new FileInputStream(file);
             return BaseEncoding.base64().encode(getBinaryFromInputStream(is));
+        } finally {
+            if (is != null) {
+                is.close();
+            }
         }
     }
 
