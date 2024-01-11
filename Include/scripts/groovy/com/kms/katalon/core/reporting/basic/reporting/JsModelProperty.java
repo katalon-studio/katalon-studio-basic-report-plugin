@@ -57,6 +57,6 @@ public class JsModelProperty {
     }
 
     private static String convertString(String string) {
-        return "\"" + StringUtils.defaultString(string) + "\"";
+        return "\"" + (string == null ? "" : string.equals("*") ? string : ("*" + string)) + "\"";
     }
 }
