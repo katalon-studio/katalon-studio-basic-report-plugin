@@ -57,8 +57,8 @@ public class JsStepModel extends JsModel {
         props.add(new JsModelProperty("Type", EMPTY_STRING_INDEX, null));
         props.add(new JsModelProperty("name", stepName, listStrings));
         props.add(new JsModelProperty("timeout", EMPTY_STRING_INDEX, null));
-        props.add(new JsModelProperty("doc", 
-                StringEscapeUtils.unescapeJava(stepLogEntity.getDescription()), listStrings));
+        props.add(new JsModelProperty("doc", StringEscapeUtils.unescapeJava(stepLogEntity.getDescription()),
+                listStrings));
         props.add(new JsModelProperty("args", EMPTY_STRING_INDEX, null));
 
         // The Status
@@ -190,8 +190,6 @@ public class JsStepModel extends JsModel {
     }
 
     private String getLogFolder(MessageLogRecord messageLog) {
-        // Find log folder
-        String logFolder = null;
         ILogRecord logRecord = messageLog;
         while (logRecord != null) {
             if (logRecord instanceof TestSuiteLogRecord) {

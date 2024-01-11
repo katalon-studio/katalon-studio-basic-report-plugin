@@ -37,28 +37,26 @@ public class KatalonReportListener {
 
             boolean genereteHTML = bundleSettingStore.getBoolean("generateHTML", true);
             boolean genereteCSV = bundleSettingStore.getBoolean("generateCSV", true);
-            // boolean genereteJUnit = bundleSettingStore.getBoolean("generateJUnit", true);
             boolean generetePDF = bundleSettingStore.getBoolean("generatePDF", false);
             if (!genereteHTML && !genereteCSV && !generetePDF) {
                 return;
             }
 
             File reportFolderFile = new File(reportFolder);
-            KeywordUtil.logInfo("reportFolder: " + reportFolder);
             File folderTemp = Files.createTempDirectory(reportFolderFile.getName() + "_").toFile();
-            // rename temp folder to match with report folder         
+            // rename temp folder to match with report folder
             folderTemp = Files.move(folderTemp.toPath(), folderTemp.toPath().resolveSibling(reportFolderFile.getName())).toFile();
 
             //FileUtils.copyDirectory(reportFolderFile, folderTemp);
             copyDirectory(reportFolderFile.toPath(), folderTemp.toPath());
             String folderTempString = folderTemp.getAbsolutePath();
-            KeywordUtil.logInfo("folderTempString: " + folderTempString);
             TestSuiteLogRecord suiteLogEntity = ReportWriterUtil.generate(folderTempString);
 
             if (genereteHTML) {
                 KeywordUtil.logInfo("Start generating HTML report folder at: " + reportFolder + "...");
-                ReportWriterUtil.writeHtmlReport(suiteLogEntity, folderTemp);
+                File htmlReportFile =ReportWriterUtil.writeHtmlReport(suiteLogEntity, folderTemp);
                 KeywordUtil.logInfo("HTML report generated");
+                FileUtils.copyFileToDirectory(htmlReportFile, reportFolderFile);
             }
 
             if (genereteCSV) {
@@ -66,12 +64,6 @@ public class KatalonReportListener {
                 ReportWriterUtil.writeCSVReport(suiteLogEntity, folderTemp);
                 KeywordUtil.logInfo("CSV report generated");
             }
-
-            //            if (genereteJUnit) {
-            //                KeywordUtil.logInfo("Start generating JUnit report folder at: " + reportFolder + "...");
-            //                ReportWriterUtil.writeJUnitReport(suiteLogEntity, reportFolderFile);
-            //                KeywordUtil.logInfo("JUnit report generated");
-            //            }
 
             if (generetePDF) {
                 KeywordUtil.logInfo("Start generating PDF report folder at: " + reportFolder + "...");

@@ -1,8 +1,12 @@
 package com.kms.katalon.core.reporting.basic.reporting;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.net.InetAddress;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
@@ -19,11 +23,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.stream.XMLStreamException;
-import java.io.BufferedWriter;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.io.OutputStream;
-import java.io.FileOutputStream;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -47,7 +46,6 @@ import com.kms.katalon.core.pdf.TestSuitePdfGenerator;
 import com.kms.katalon.core.pdf.exception.JasperReportException;
 import com.kms.katalon.core.reporting.basic.reporting.template.ResourceLoader;
 import com.kms.katalon.core.testdata.reader.CsvWriter;
-import com.kms.katalon.core.util.KeywordUtil;
 import com.kms.katalon.core.util.internal.DateUtil;
 
 public class ReportWriterUtil {
@@ -60,7 +58,8 @@ public class ReportWriterUtil {
         stringBuilder.deleteCharAt(stringBuilder.length() - 1);
     }
 
-    private static void appendReportConstantValuesWithWriter(List<String> constantValues, Writer writer) throws IOException {
+    private static void appendReportConstantValuesWithWriter(List<String> constantValues, Writer writer)
+            throws IOException {
         int size = constantValues.size();
         for (int i = 0; i < size; i++) {
             writer.write(constantValues.get(i));
@@ -70,8 +69,8 @@ public class ReportWriterUtil {
         }
     }
 
-    private static String generateVars(List<String> strings, TestSuiteLogRecord suiteLogEntity,
-            StringBuilder model) throws IOException {
+    private static String generateVars(List<String> strings, TestSuiteLogRecord suiteLogEntity, StringBuilder model)
+            throws IOException {
         StringBuilder sb = new StringBuilder();
         List<String> lines = IOUtils
                 .readLines(ResourceLoader.class.getResourceAsStream(ResourceLoader.HTML_TEMPLATE_VARS));
@@ -113,9 +112,8 @@ public class ReportWriterUtil {
         return sb.toString();
     }
 
-    private static void generateVarsWithWriter(List<String> strings, TestSuiteLogRecord suiteLogEntity, StringBuilder model, Writer writer)
-            throws IOException {
-        KeywordUtil.logInfo("GENERATE VARS WITH WRITER");
+    private static void generateVarsWithWriter(List<String> strings, TestSuiteLogRecord suiteLogEntity,
+            StringBuilder model, Writer writer) throws IOException {
         List<String> lines = IOUtils
                 .readLines(ResourceLoader.class.getResourceAsStream(ResourceLoader.HTML_TEMPLATE_VARS));
         for (String line : lines) {
@@ -364,14 +362,21 @@ public class ReportWriterUtil {
 
         JsSuiteModel jsSuiteModel = new JsSuiteModel(suiteLogEntity, strings);
         StringBuilder sbModel = jsSuiteModel.toArrayString();
-
-        System.out.println("----------------------------------------------------");
-        System.out.println("Start writing to file: " + destFile.getAbsolutePath());
-        try (OutputStream outputStream = new FileOutputStream(destFile);
-            Writer writer = new OutputStreamWriter(outputStream, StringConstants.DF_CHARSET)) {
+        OutputStream outputStream = null;
+        Writer writer = null;
+        try {
+            writer = new OutputStreamWriter(outputStream, StringConstants.DF_CHARSET);
+            outputStream = new FileOutputStream(destFile);
             writer.write(readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_FILE));
             generateVarsWithWriter(strings, suiteLogEntity, sbModel, writer);
             writer.write(readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_CONTENT));
+        } finally {
+            if (outputStream != null) {
+                outputStream.close();
+            }
+            if (writer != null) {
+                writer.close();
+            }
         }
     }
 
@@ -448,7 +453,6 @@ public class ReportWriterUtil {
         StringBuilder sb = new StringBuilder();
         String path = ResourceLoader.class.getProtectionDomain().getCodeSource().getLocation().getFile();
         path = URLDecoder.decode(path, "utf-8");
-        KeywordUtil.logInfo("path: " + path);
         File jarFile = new File(path);
         if (jarFile.isFile()) {
             JarFile jar = new JarFile(jarFile);
@@ -457,7 +461,6 @@ public class ReportWriterUtil {
                 JarEntry jarEntry = entries.nextElement();
                 String name = jarEntry.getName();
                 if (name.endsWith(fileName)) {
-                    KeywordUtil.logInfo("name: " + name);
                     StringBuilderWriter sbWriter = new StringBuilderWriter(new StringBuilder());
                     IOUtils.copy(jar.getInputStream(jarEntry), sbWriter);
                     sbWriter.flush();
