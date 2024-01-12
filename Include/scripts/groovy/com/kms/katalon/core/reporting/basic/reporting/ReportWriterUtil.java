@@ -211,11 +211,12 @@ public class ReportWriterUtil {
         writePdfReport(suiteLogEntity, logFolder);
     }
 
-    public static void writePdfReport(TestSuiteLogRecord suiteLogEntity, File logFolder)
+    public static File writePdfReport(TestSuiteLogRecord suiteLogEntity, File logFolder)
             throws JasperReportException, IOException {
         TestSuitePdfGenerator pdfGenerator = new TestSuitePdfGenerator(suiteLogEntity);
         File exportLocation = new File(logFolder, logFolder.getName() + ".pdf");
         pdfGenerator.exportToPDF(exportLocation.getAbsolutePath());
+        return exportLocation;
     }
 
     public static void writeLogRecordToJUnitFile(String logFolder) throws Exception {
@@ -365,17 +366,17 @@ public class ReportWriterUtil {
         OutputStream outputStream = null;
         Writer writer = null;
         try {
+        	outputStream = new FileOutputStream(destFile);
             writer = new OutputStreamWriter(outputStream, StringConstants.DF_CHARSET);
-            outputStream = new FileOutputStream(destFile);
             writer.write(readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_FILE));
             generateVarsWithWriter(strings, suiteLogEntity, sbModel, writer);
             writer.write(readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_CONTENT));
         } finally {
+        	if (writer != null) {
+                writer.close();
+            }
             if (outputStream != null) {
                 outputStream.close();
-            }
-            if (writer != null) {
-                writer.close();
             }
         }
     }
@@ -390,11 +391,12 @@ public class ReportWriterUtil {
         FileUtils.writeStringToFile(new File(logFolder, "execution.uuid"), UUID, StringConstants.DF_CHARSET);
     }
 
-    public static void writeCSVReport(TestSuiteLogRecord suiteLogEntity, File folder) throws IOException {
+    public static File writeCSVReport(TestSuiteLogRecord suiteLogEntity, File folder) throws IOException {
         File file = new File(folder, folder.getName() + ".csv");
         if (!file.exists()) {
             CsvWriter.writeCsvReport(suiteLogEntity, file, Arrays.asList(suiteLogEntity.filterFinalTestCasesResult()));
         }
+        return file;
     }
 
     public static void writeSimpleHTMLReport(TestSuiteLogRecord suiteLogEntity, File logFolder)

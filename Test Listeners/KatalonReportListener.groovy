@@ -54,30 +54,24 @@ public class KatalonReportListener {
 
             if (genereteHTML) {
                 KeywordUtil.logInfo("Start generating HTML report folder at: " + reportFolder + "...");
-                File htmlReportFile =ReportWriterUtil.writeHtmlReport(suiteLogEntity, folderTemp);
+                File htmlReportFile = ReportWriterUtil.writeHtmlReport(suiteLogEntity, folderTemp);
+				FileUtils.copyFileToDirectory(htmlReportFile, reportFolderFile);
                 KeywordUtil.logInfo("HTML report generated");
-                FileUtils.copyFileToDirectory(htmlReportFile, reportFolderFile);
             }
 
             if (genereteCSV) {
                 KeywordUtil.logInfo("Start generating CSV report folder at: " + reportFolder + "...");
-                ReportWriterUtil.writeCSVReport(suiteLogEntity, folderTemp);
-                KeywordUtil.logInfo("CSV report generated");
+                File csvReportFile = ReportWriterUtil.writeCSVReport(suiteLogEntity, folderTemp);
+				FileUtils.copyFileToDirectory(csvReportFile, reportFolderFile);
+				KeywordUtil.logInfo("CSV report generated");
             }
 
             if (generetePDF) {
                 KeywordUtil.logInfo("Start generating PDF report folder at: " + reportFolder + "...");
-                ReportWriterUtil.writePdfReport(suiteLogEntity, folderTemp);
-                KeywordUtil.logInfo("PDF report generated");
+                File pdfReportFile = ReportWriterUtil.writePdfReport(suiteLogEntity, folderTemp);
+				FileUtils.copyFileToDirectory(pdfReportFile, reportFolderFile);
+				KeywordUtil.logInfo("PDF report generated");
             }
-
-            FileUtils.copyDirectory(folderTemp, reportFolderFile, new FileFilter() {
-                @Override
-                public boolean accept(File pathname) {
-                    String path = pathname.getAbsolutePath().toLowerCase();
-                    return path.contains(".csv") || path.contains(".html") || path.contains(".pdf");
-                }
-            });
             FileUtils.deleteQuietly(folderTemp);
             FileUtils.forceDeleteOnExit(folderTemp);
         } catch (Exception e) {
