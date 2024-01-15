@@ -156,8 +156,7 @@ public class JsStepModel extends JsModel {
 
     private void initLogRecords() {
         for (ILogRecord logRecord : stepLogEntity.getChildRecords()) {
-            if (logRecord instanceof MessageLogRecord) {
-                MessageLogRecord messageLog = (MessageLogRecord) logRecord;
+            if (logRecord instanceof MessageLogRecord messageLog) {
                 long logStartTime = messageLog.getStartTime();
                 String logStatVal = messageLog.getStatus().getStatusValue().ordinal() + "";
                 String logStatMsg = messageLog.getMessage();
@@ -176,9 +175,8 @@ public class JsStepModel extends JsModel {
                     }
                     if (attachmentFile.exists()) {
                         try {
-                            String md5 = encodeFileContent(attachmentFile);
-                            jsLogRecModel.props
-                                    .add(new JsModelProperty("link", "data:image/png;base64," + md5, listStrings));
+                            jsLogRecModel.props.add(new JsModelProperty("link",
+                                    "data:image/png;base64," + encodeFileContent(attachmentFile), listStrings));
                         } catch (Exception e) {
                             // TODO: Need some way to log errors here
                         }
