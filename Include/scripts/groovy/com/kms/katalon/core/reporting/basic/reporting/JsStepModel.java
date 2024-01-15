@@ -57,8 +57,8 @@ public class JsStepModel extends JsModel {
         props.add(new JsModelProperty("Type", EMPTY_STRING_INDEX, null));
         props.add(new JsModelProperty("name", stepName, listStrings));
         props.add(new JsModelProperty("timeout", EMPTY_STRING_INDEX, null));
-        props.add(new JsModelProperty("doc", 
-                StringEscapeUtils.unescapeJava(stepLogEntity.getDescription()), listStrings));
+        props.add(new JsModelProperty("doc", StringEscapeUtils.unescapeJava(stepLogEntity.getDescription()),
+                listStrings));
         props.add(new JsModelProperty("args", EMPTY_STRING_INDEX, null));
 
         // The Status
@@ -156,8 +156,7 @@ public class JsStepModel extends JsModel {
 
     private void initLogRecords() {
         for (ILogRecord logRecord : stepLogEntity.getChildRecords()) {
-            if (logRecord instanceof MessageLogRecord) {
-                MessageLogRecord messageLog = (MessageLogRecord) logRecord;
+            if (logRecord instanceof MessageLogRecord messageLog) {
                 long logStartTime = messageLog.getStartTime();
                 String logStatVal = messageLog.getStatus().getStatusValue().ordinal() + "";
                 String logStatMsg = messageLog.getMessage();
@@ -176,9 +175,8 @@ public class JsStepModel extends JsModel {
                     }
                     if (attachmentFile.exists()) {
                         try {
-                            String md5 = encodeFileContent(attachmentFile);
-                            jsLogRecModel.props
-                                    .add(new JsModelProperty("link", "data:image/png;base64," + md5, listStrings));
+                            jsLogRecModel.props.add(new JsModelProperty("link",
+                                    "data:image/png;base64," + encodeFileContent(attachmentFile), listStrings));
                         } catch (Exception e) {
                             // TODO: Need some way to log errors here
                         }
@@ -190,8 +188,6 @@ public class JsStepModel extends JsModel {
     }
 
     private String getLogFolder(MessageLogRecord messageLog) {
-        // Find log folder
-        String logFolder = null;
         ILogRecord logRecord = messageLog;
         while (logRecord != null) {
             if (logRecord instanceof TestSuiteLogRecord) {
@@ -203,8 +199,14 @@ public class JsStepModel extends JsModel {
     }
 
     private String encodeFileContent(final File file) throws FileNotFoundException, Exception, IOException {
-        try (InputStream is = new FileInputStream(file)) {
+        InputStream is = null;
+        try {
+            is = new FileInputStream(file);
             return BaseEncoding.base64().encode(getBinaryFromInputStream(is));
+        } finally {
+            if (is != null) {
+                is.close();
+            }
         }
     }
 
