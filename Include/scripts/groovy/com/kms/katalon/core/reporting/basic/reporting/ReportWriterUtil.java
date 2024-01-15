@@ -199,12 +199,9 @@ public class ReportWriterUtil {
     public static void writeLogRecordToFiles(TestSuiteLogRecord suiteLogEntity, File logFolder) throws Exception {
         writeHtmlReport(suiteLogEntity, logFolder);
 
-        // Write CSV file
         writeCSVReport(suiteLogEntity, logFolder);
 
         writeSimpleHTMLReport(suiteLogEntity, logFolder);
-
-        // writeJsonReport(suiteLogEntity, logFolder);
 
         writeJUnitReport(suiteLogEntity, logFolder);
 
@@ -314,27 +311,6 @@ public class ReportWriterUtil {
         marshaller.marshal(tss, new File(logFolder, "JUnit_Report.xml"));
     }
 
-    // public static void writeJsonReport(TestSuiteLogRecord suiteLogEntity, File logFolder) throws IOException {
-    // List<String> excludedFieldNames = Arrays.asList(suiteLogEntity.getJsonExcludedFields());
-    // ExclusionStrategy excludeFields = new ExclusionStrategy() {
-    //
-    // @Override
-    // public boolean shouldSkipField(FieldAttributes paramFieldAttributes) {
-    // return excludedFieldNames.size() == 0 ? false
-    // : excludedFieldNames.contains(paramFieldAttributes.getName());
-    // }
-    //
-    // @Override
-    // public boolean shouldSkipClass(Class<?> paramClass) {
-    // return false;
-    // }
-    // };
-    // String json = new GsonBuilder().addSerializationExclusionStrategy(excludeFields)
-    // .create()
-    // .toJson(suiteLogEntity);
-    // FileUtils.writeStringToFile(new File(logFolder, "JSON_Report.json"), json, StringConstants.DF_CHARSET);
-    // }
-
     public static File writeTSCollectionHTMLReport(String reportTitle, String tsReportsJson, File destDir)
             throws IOException, URISyntaxException {
         String template = readFileToStringBuilder(ResourceLoader.HTML_COLLECTION_INDEX_TEMPLATE);
@@ -366,13 +342,13 @@ public class ReportWriterUtil {
         OutputStream outputStream = null;
         Writer writer = null;
         try {
-        	outputStream = new FileOutputStream(destFile);
+            outputStream = new FileOutputStream(destFile);
             writer = new OutputStreamWriter(outputStream, StringConstants.DF_CHARSET);
             writer.write(readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_FILE));
             generateVarsWithWriter(strings, suiteLogEntity, sbModel, writer);
             writer.write(readFileToStringBuilder(ResourceLoader.HTML_TEMPLATE_CONTENT));
         } finally {
-        	if (writer != null) {
+            if (writer != null) {
                 writer.close();
             }
             if (outputStream != null) {
@@ -401,12 +377,6 @@ public class ReportWriterUtil {
 
     public static void writeSimpleHTMLReport(TestSuiteLogRecord suiteLogEntity, File logFolder)
             throws IOException, URISyntaxException {
-        // Remove Info Logs
-        // List<ILogRecord> infoLogs = new ArrayList<ILogRecord>();
-        // collectInfoLines(suiteLogEntity, infoLogs);
-        // for (ILogRecord infoLog : infoLogs) {
-        // infoLog.getParentLogRecord().removeChildRecord(infoLog);
-        // }
 
         List<String> simpleStrings = new LinkedList<String>();
         JsSuiteModel simpleJsSuiteModel = new JsSuiteModel(suiteLogEntity, simpleStrings);

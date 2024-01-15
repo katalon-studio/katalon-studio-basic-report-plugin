@@ -13,16 +13,18 @@ import com.kms.katalon.core.util.KeywordUtil;
 import com.kms.katalon.core.util.internal.ExceptionsUtil;
 
 public class KatalonReportListener {
-    public void copyDirectory(Path sourcePath, Path destinationPath) {
+    private void copyDirectory(Path sourcePath, Path destinationPath) {
         try {
             Files.walk(sourcePath).forEach(source -> {
                 Path destination = destinationPath.resolve(sourcePath.relativize(source));
                 try {
                     Files.copy(source, destination);
                 } catch (IOException e) {
+                    KeywordUtil.markWarning(ExceptionsUtil.getStackTraceForThrowable(e));
                 }
             });
         } catch (IOException e) {
+            KeywordUtil.markWarning(ExceptionsUtil.getStackTraceForThrowable(e));
         }
     }
 
@@ -47,7 +49,6 @@ public class KatalonReportListener {
             // rename temp folder to match with report folder
             folderTemp = Files.move(folderTemp.toPath(), folderTemp.toPath().resolveSibling(reportFolderFile.getName())).toFile();
 
-            //FileUtils.copyDirectory(reportFolderFile, folderTemp);
             copyDirectory(reportFolderFile.toPath(), folderTemp.toPath());
             String folderTempString = folderTemp.getAbsolutePath();
             TestSuiteLogRecord suiteLogEntity = ReportWriterUtil.generate(folderTempString);
@@ -55,22 +56,22 @@ public class KatalonReportListener {
             if (genereteHTML) {
                 KeywordUtil.logInfo("Start generating HTML report folder at: " + reportFolder + "...");
                 File htmlReportFile = ReportWriterUtil.writeHtmlReport(suiteLogEntity, folderTemp);
-				FileUtils.copyFileToDirectory(htmlReportFile, reportFolderFile);
+                FileUtils.copyFileToDirectory(htmlReportFile, reportFolderFile);
                 KeywordUtil.logInfo("HTML report generated");
             }
 
             if (genereteCSV) {
                 KeywordUtil.logInfo("Start generating CSV report folder at: " + reportFolder + "...");
                 File csvReportFile = ReportWriterUtil.writeCSVReport(suiteLogEntity, folderTemp);
-				FileUtils.copyFileToDirectory(csvReportFile, reportFolderFile);
-				KeywordUtil.logInfo("CSV report generated");
+                FileUtils.copyFileToDirectory(csvReportFile, reportFolderFile);
+                KeywordUtil.logInfo("CSV report generated");
             }
 
             if (generetePDF) {
                 KeywordUtil.logInfo("Start generating PDF report folder at: " + reportFolder + "...");
                 File pdfReportFile = ReportWriterUtil.writePdfReport(suiteLogEntity, folderTemp);
-				FileUtils.copyFileToDirectory(pdfReportFile, reportFolderFile);
-				KeywordUtil.logInfo("PDF report generated");
+                FileUtils.copyFileToDirectory(pdfReportFile, reportFolderFile);
+                KeywordUtil.logInfo("PDF report generated");
             }
             FileUtils.deleteQuietly(folderTemp);
             FileUtils.forceDeleteOnExit(folderTemp);
