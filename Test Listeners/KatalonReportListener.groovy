@@ -1,3 +1,4 @@
+import java.nio.file.FileAlreadyExistsException
 import java.nio.file.Files
 import java.nio.file.Path;
 
@@ -20,7 +21,9 @@ public class KatalonReportListener {
                 try {
                     Files.copy(source, destination);
                 } catch (IOException e) {
-                    KeywordUtil.markWarning(ExceptionsUtil.getStackTraceForThrowable(e));
+                    if(!(e instanceof FileAlreadyExistsException)) {
+                        KeywordUtil.markWarning(ExceptionsUtil.getStackTraceForThrowable(e));
+                    }
                 }
             });
         } catch (IOException e) {
