@@ -21,7 +21,7 @@ public class KatalonReportListener {
                 try {
                     Files.copy(source, destination);
                 } catch (IOException e) {
-                    if(!e instanceof FileAlreadyExistsException) {
+                    if(!(e instanceof FileAlreadyExistsException)) {
                         KeywordUtil.markWarning(ExceptionsUtil.getStackTraceForThrowable(e));
                     }
                 }
