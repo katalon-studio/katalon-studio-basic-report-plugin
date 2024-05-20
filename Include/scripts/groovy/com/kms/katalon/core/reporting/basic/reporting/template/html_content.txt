@@ -38,13 +38,13 @@ $(document).ready(function() {
     }
     
     if($("s1").attr('class') == 'element-header closed'){
-		toggleSuite('s1')
-	}
-	$("#s1").find("div[id*='s1-t']").each(function(){
-		if (!this.id.includes('dataBinding')) {
-      		toggleTest(this.id);
-    	}
-	});
+    toggleSuite('s1')
+  }
+  $("#s1").find("div[id*='s1-t']").each(function(){
+    if (!this.id.includes('dataBinding')) {
+      toggleTest(this.id);
+    }
+  });
     
 });
 
@@ -296,7 +296,6 @@ function maskedText(text, masked) {
           <td>{{html retriedTimes}}</td>
         </tr>
         {{/if}}
-        
         {{if message()}}
         <tr>
           <th>Message:</th>
@@ -304,11 +303,11 @@ function maskedText(text, masked) {
         </tr>
         {{/if}}
         </table>
-     	{{if (dataBindings != null && !dataBindings.isEmpty)}}
-     		{{if dataBindings.data.length > 0}}
-        		{{tmpl(dataBindings) '#dataBindingTemplate'}}
-        	{{/if}}
-    	{{/if}}
+        {{if (dataBindings != null && !dataBindings.isEmpty)}}
+          {{if dataBindings.data.length > 0}}
+            {{tmpl(dataBindings) '#dataBindingTemplate'}}
+          {{/if}}
+      {{/if}}
     </div>
   </div>
 </script>
@@ -321,11 +320,11 @@ function maskedText(text, masked) {
     <div class="children">
         <table class="metadata databinding-metadata">
             {{each data }}
-		            <tr>
-		                <th title="${name}">${displayReportName}</th>
-		                <td>{{html maskedText(value, masked)}}<td>
-		            </tr>
-		    {{/each}}
+                <tr>
+                    <th title="${name}">${displayReportName}</th>
+                    <td>{{html maskedText(value, masked)}}<td>
+                </tr>
+        {{/each}}
         </table>
     </div>
   </div>
@@ -335,19 +334,16 @@ function maskedText(text, masked) {
   <div id="${id}" class="keyword">
     <div class="element-header closed" onclick="toggleKeyword('${id}')" title="${name}">
       <span class="${status.toLowerCase()}">TEST STEP: </span>
-      
       {{if doc()}}
-      <span>Description: <font>{{html doc()}}</font></span>	
+      <span>Description: <font>{{html doc()}}</font></span>
       {{else}}
       <span style="color:#808080; font-style: italic">{{html name}}</span>
       <span style="color:#808080; font-style: italic" class="arg">{{html arguments}}</span>
       {{/if}}
-      
     </div>
     {{if doc()}}
-      	<div style="margin-left: 2.6cm; color:#808080; font-style: italic"><span>{{html name}}</span><span class="arg">{{html arguments}}</span></div>
+        <div style="margin-left: 2.6cm; color:#808080; font-style: italic"><span>{{html name}}</span><span class="arg">{{html arguments}}</span></div>
     {{/if}}
-    
     <div class="children">
       <table class="metadata keyword-metadata">
         {{if timeout}}
@@ -371,13 +367,11 @@ function maskedText(text, masked) {
       <td class="time">${time}</td>
       <td class="${level.toLowerCase()} level">${level}</td>
       <td class="message">{{html text}}
-      
-      	{{if link}}
+        {{if link}}
         <div>
           <IMG src='{{html link}}' width='800px'/>
         </div>
         {{/if}}
-      
       </td>
       <td class="select-text" onclick="javascript:selectMessage('${id}')"
           title="Select message text"></td>
@@ -398,40 +392,36 @@ function maskedText(text, masked) {
 
 <script type="text/x-jquery-tmpl" id="testEnvironmentInfoTemplate">
   <table>
-  	<tr>
-  		<td>Host name:<td>
-  		<td>{{html host}}<td>
-  	</tr>
-  	<tr>
-  		<td>Local OS:<td>
-  		<td>{{html os}}<td>
-  	</tr>
-  	<tr>
-  		<td>Katalon version:<td>
-  		<td>{{html katalonVersion}}<td>
-  	</tr>
-  	
-  	{{if browser}}
-  	<tr>
-  		<td>Browser:<td>
-  		<td>{{html browser}}<td>
-  	</tr>
-  	{{/if}}
-  		
-  	{{if deviceName}}
-  	<tr>
-  		<td>Device Name:<td>
-  		<td>{{html deviceName}}<td>
-  	</tr>
-  	{{/if}}	
-  	
-  	{{if devicePlatform}}
-  	<tr>
-  		<td>Device Platform:<td>
-  		<td>{{html devicePlatform}}<td>
-  	</tr>
-  	{{/if}}	
-  	
+    <tr>
+      <td>Host name:<td>
+      <td>{{html host}}<td>
+    </tr>
+    <tr>
+      <td>Local OS:<td>
+      <td>{{html os}}<td>
+    </tr>
+    <tr>
+      <td>Katalon version:<td>
+      <td>{{html katalonVersion}}<td>
+    </tr>
+    {{if browserName}}
+    <tr>
+      <td>Browser:<td>
+      <td>{{html browserName}}<td>
+    </tr>
+    {{/if}}
+    {{if deviceName}}
+    <tr>
+      <td>Device name:<td>
+      <td>{{html deviceName}}<td>
+    </tr>
+    {{/if}}
+    {{if devicePlatform}}
+    <tr>
+      <td>Device Platform:<td>
+      <td>{{html devicePlatform}}<td>
+    </tr>
+    {{/if}}
   </table>
 </script>
 </body>
