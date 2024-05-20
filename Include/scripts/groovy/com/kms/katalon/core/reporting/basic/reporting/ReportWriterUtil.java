@@ -86,22 +86,13 @@ public class ReportWriterUtil {
                 envInfoSb.append(String.format("\"os\" : \"%s\", ", suiteLogEntity.getOs()));
                 envInfoSb.append(String.format("\"" + StringConstants.APP_VERSION + "\" : \"%s\", ",
                         suiteLogEntity.getAppVersion()));
-                if (suiteLogEntity.getBrowser() != null && !suiteLogEntity.getBrowser().equals("")) {
-                    if (suiteLogEntity.getRunData().containsKey("browser")) {
-                        envInfoSb.append(
-                                String.format("\"browser\" : \"%s\",", suiteLogEntity.getRunData().get("browser")));
-                    } else {
-                        envInfoSb.append(String.format("\"browser\" : \"%s\",", suiteLogEntity.getBrowser()));
-                    }
-                }
-                if (suiteLogEntity.getDeviceName() != null && !suiteLogEntity.getDeviceName().equals("")) {
-                    envInfoSb.append(String.format("\"deviceName\" : \"%s\",", suiteLogEntity.getDeviceName()));
-                }
-                if (suiteLogEntity.getDeviceName() != null && !suiteLogEntity.getDeviceName().equals("")) {
-                    envInfoSb.append(String.format("\"devicePlatform\" : \"%s\",", suiteLogEntity.getDevicePlatform()));
-                }
-                envInfoSb.append("\"\" : \"\"");
 
+                String mobileDeviceName = suiteLogEntity.getMobileDeviceName();
+                envInfoSb.append(String.format("\"deviceName\" : \"%s\", ", mobileDeviceName));
+
+                String browserName = suiteLogEntity.getBrowser();
+                envInfoSb.append(String.format("\"browserName\" : \"%s\", ", browserName));
+                envInfoSb.append("\"\" : \"\"");
                 envInfoSb.append("}");
                 sb.append(envInfoSb);
             } else {
@@ -128,22 +119,12 @@ public class ReportWriterUtil {
                 envInfoSb.append(String.format("\"os\" : \"%s\", ", suiteLogEntity.getOs()));
                 envInfoSb.append(String.format("\"" + StringConstants.APP_VERSION + "\" : \"%s\", ",
                         suiteLogEntity.getAppVersion()));
-                if (suiteLogEntity.getBrowser() != null && !suiteLogEntity.getBrowser().equals("")) {
-                    if (suiteLogEntity.getRunData().containsKey("browser")) {
-                        envInfoSb.append(
-                                String.format("\"browser\" : \"%s\",", suiteLogEntity.getRunData().get("browser")));
-                    } else {
-                        envInfoSb.append(String.format("\"browser\" : \"%s\",", suiteLogEntity.getBrowser()));
-                    }
-                }
-                if (suiteLogEntity.getDeviceName() != null && !suiteLogEntity.getDeviceName().equals("")) {
-                    envInfoSb.append(String.format("\"deviceName\" : \"%s\",", suiteLogEntity.getDeviceName()));
-                }
-                if (suiteLogEntity.getDeviceName() != null && !suiteLogEntity.getDeviceName().equals("")) {
-                    envInfoSb.append(String.format("\"devicePlatform\" : \"%s\",", suiteLogEntity.getDevicePlatform()));
-                }
-                envInfoSb.append("\"\" : \"\"");
+                String mobileDeviceName = suiteLogEntity.getMobileDeviceName();
+                envInfoSb.append(String.format("\"deviceName\" : \"%s\", ", mobileDeviceName));
 
+                String browserName = suiteLogEntity.getBrowser();
+                envInfoSb.append(String.format("\"browserName\" : \"%s\", ", browserName));
+                envInfoSb.append("\"\" : \"\"");
                 envInfoSb.append("}");
                 writer.write(envInfoSb.toString());
             } else {

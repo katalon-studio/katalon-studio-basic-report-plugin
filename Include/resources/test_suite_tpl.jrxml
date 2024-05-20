@@ -245,42 +245,42 @@
 					<text><![CDATA[ID]]></text>
 				</staticText>
 				<textField>
-					<reportElement positionType="Float" x="120" y="37" width="425" height="14" uuid="ccf1f74a-f8b7-49fd-ae66-a9dd30d5d6a4"/>
+					<reportElement positionType="Float" x="120" y="32" width="425" height="14" uuid="ccf1f74a-f8b7-49fd-ae66-a9dd30d5d6a4"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font size="9"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{TEST_SUITE}.getOs()]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement positionType="Float" x="30" y="37" width="90" height="14" uuid="9d6a46dd-41b4-40cc-b284-22ac18247e3a"/>
+					<reportElement positionType="Float" x="30" y="32" width="90" height="14" uuid="9d6a46dd-41b4-40cc-b284-22ac18247e3a"/>
 					<textElement verticalAlignment="Middle">
 						<font size="9" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Local OS]]></text>
 				</staticText>
 				<staticText>
-					<reportElement positionType="Float" x="30" y="51" width="90" height="14" uuid="a74205c2-6f11-409e-91d9-a692d4653f43"/>
+					<reportElement positionType="Float" x="30" y="46" width="90" height="14" uuid="a74205c2-6f11-409e-91d9-a692d4653f43"/>
 					<textElement verticalAlignment="Middle">
 						<font size="9" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Katalon version]]></text>
 				</staticText>
 				<textField>
-					<reportElement positionType="Float" x="120" y="51" width="425" height="14" uuid="091f3941-5998-4ec6-9bc8-d31214f10d6b"/>
+					<reportElement positionType="Float" x="120" y="46" width="425" height="14" uuid="091f3941-5998-4ec6-9bc8-d31214f10d6b"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font size="9"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{TEST_SUITE}.getAppVersion()]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement positionType="Float" x="30" y="23" width="90" height="14" uuid="ad05ebdb-af56-4eb7-bb78-bc05a8d13e47"/>
+					<reportElement positionType="Float" x="30" y="18" width="90" height="14" uuid="ad05ebdb-af56-4eb7-bb78-bc05a8d13e47"/>
 					<textElement verticalAlignment="Middle">
 						<font size="9" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Host name]]></text>
 				</staticText>
 				<textField>
-					<reportElement positionType="Float" x="120" y="23" width="425" height="14" uuid="97c9c5ca-ed9b-461b-9fd2-6c8aa483f5c5"/>
+					<reportElement positionType="Float" x="120" y="18" width="425" height="14" uuid="97c9c5ca-ed9b-461b-9fd2-6c8aa483f5c5"/>
 					<textElement verticalAlignment="Middle">
 						<font size="9"/>
 					</textElement>
@@ -380,18 +380,32 @@
 					<textFieldExpression><![CDATA[$P{TEST_SUITE}.getTotalIncompleteTestCases()]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement positionType="Float" x="30" y="65" width="90" height="14" uuid="79eb660c-606a-49d6-b021-32c437f0065f"/>
+					<reportElement positionType="Float" x="30" y="60" width="90" height="14" uuid="79eb660c-606a-49d6-b021-32c437f0065f"/>
 					<textElement verticalAlignment="Middle">
 						<font size="9" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Browser]]></text>
 				</staticText>
 				<textField>
-					<reportElement positionType="Float" x="120" y="65" width="425" height="14" uuid="3ace17b0-45dd-4636-bc13-1fd4415202fe"/>
+					<reportElement positionType="Float" x="120" y="60" width="425" height="14" uuid="3ace17b0-45dd-4636-bc13-1fd4415202fe"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font size="9"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{TEST_SUITE}.getRunData().get("browser")]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{TEST_SUITE}.getBrowser()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement positionType="Float" x="30" y="74" width="90" height="14" uuid="79eb660c-606a-49d6-b021-32c437f0065f"/>
+					<textElement verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Device name]]></text>
+				</staticText>
+				<textField>
+					<reportElement positionType="Float" x="120" y="74" width="425" height="14" uuid="3ace17b0-45dd-4636-bc13-1fd4415202fe"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{TEST_SUITE}.getMobileDeviceName()]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement positionType="Float" x="120" y="181" width="160" height="13" uuid="60fc0d52-4bc6-4dc9-bb20-02eb195275a0"/>

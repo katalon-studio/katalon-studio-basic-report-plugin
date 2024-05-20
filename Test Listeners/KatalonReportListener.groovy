@@ -16,16 +16,16 @@ import com.kms.katalon.core.util.internal.ExceptionsUtil;
 public class KatalonReportListener {
     private void copyDirectory(Path sourcePath, Path destinationPath) {
         try {
-            Files.walk(sourcePath).forEach(source -> {
-                Path destination = destinationPath.resolve(sourcePath.relativize(source));
-                try {
-                    Files.copy(source, destination);
-                } catch (IOException e) {
-                    if(!(e instanceof FileAlreadyExistsException)) {
-                        KeywordUtil.markWarning(ExceptionsUtil.getStackTraceForThrowable(e));
-                    }
-                }
-            });
+            Files.walk(sourcePath).forEach{ source ->
+				Path destination = destinationPath.resolve(sourcePath.relativize(source));
+				try {
+					Files.copy(source, destination);
+				} catch (IOException e) {
+					if(!(e instanceof FileAlreadyExistsException)) {
+						KeywordUtil.markWarning(ExceptionsUtil.getStackTraceForThrowable(e));
+					}
+				}
+			};
         } catch (IOException e) {
             KeywordUtil.markWarning(ExceptionsUtil.getStackTraceForThrowable(e));
         }
