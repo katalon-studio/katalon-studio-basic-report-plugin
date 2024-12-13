@@ -31,6 +31,18 @@
 					"type": "checkbox",
 					"label": "PDF",
 					"defaultValue": "false"
+				},
+				{
+					"key": "lblHTMLFileStructure",
+					"type": "label",
+					"label": "HTML report file structure:"
+				},
+				{
+					"key": "generateHTMLReferenceImages",
+					"type": "checkboxAndHelpLink",
+					"label": "Attach reference images using linked screenshots (not embedded) to reduce report file size",
+					"link": "https://docs.katalon.com/katalon-studio/test-reports/view-test-reports/view-test-suite-and-test-suite-collection-reports-in-katalon-studio#automatically-generate-reports",
+					"defaultValue": "false"
 				}
 			]
 		}

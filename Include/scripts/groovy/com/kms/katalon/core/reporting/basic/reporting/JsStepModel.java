@@ -18,6 +18,8 @@ import com.kms.katalon.core.logging.model.TestCaseLogRecord;
 import com.kms.katalon.core.logging.model.TestStatus.TestStatusValue;
 import com.kms.katalon.core.logging.model.TestStepLogRecord;
 import com.kms.katalon.core.logging.model.TestSuiteLogRecord;
+import com.kms.katalon.core.setting.BundleSettingStore;
+import com.kms.katalon.core.configuration.RunConfiguration;
 
 public class JsStepModel extends JsModel {
 
@@ -173,14 +175,26 @@ public class JsStepModel extends JsModel {
                             attachmentFile = new File(logFolder + File.separator + messageLog.getAttachment());
                         }
                     }
+                    
                     if (attachmentFile.exists()) {
                         try {
-                            jsLogRecModel.props.add(new JsModelProperty("link",
-                                    "data:image/png;base64," + encodeFileContent(attachmentFile), listStrings));
+                            String projectDir = RunConfiguration.getProjectDir();
+                            BundleSettingStore bundleSettingStore = new BundleSettingStore(projectDir, "com.katalon.plugin.report", true);
+                            boolean useBase64 = !bundleSettingStore.getBoolean("generateHTMLReferenceImages", false);
+
+                            String linkValue;
+                            if (useBase64) {
+                            	linkValue = "data:image/png;base64," + encodeFileContent(attachmentFile);
+                            } else if (attachmentFile.getPath().startsWith("/var/folders/")) {
+                                linkValue = attachmentFile.getName();
+                            } else {
+                                linkValue = attachmentFile.getPath();
+                            }
+                            jsLogRecModel.props.add(new JsModelProperty("link", linkValue, listStrings));
                         } catch (Exception e) {
                             // TODO: Need some way to log errors here
                         }
-                    }
+                    }          
                 }
                 logRecords.add(jsLogRecModel);
             }
