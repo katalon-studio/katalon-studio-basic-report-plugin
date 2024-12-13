@@ -38,8 +38,8 @@
 					"label": "HTML report file structure:"
 				},
 				{
-					"key": "generateHTMLReferenceImages",
-					"type": "checkboxAndHelpLink",
+					"key": "useHTMLImageReferences",
+					"type": "checkbox",
 					"label": "Attach reference images using linked screenshots (not embedded) to reduce report file size",
 					"link": "https://docs.katalon.com/katalon-studio/test-reports/view-test-reports/view-test-suite-and-test-suite-collection-reports-in-katalon-studio#automatically-generate-reports",
 					"defaultValue": "false"

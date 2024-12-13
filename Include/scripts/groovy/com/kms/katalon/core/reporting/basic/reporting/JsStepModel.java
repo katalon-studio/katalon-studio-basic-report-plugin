@@ -180,7 +180,7 @@ public class JsStepModel extends JsModel {
                         try {
                             String projectDir = RunConfiguration.getProjectDir();
                             BundleSettingStore bundleSettingStore = new BundleSettingStore(projectDir, "com.katalon.plugin.report", true);
-                            boolean useBase64 = !bundleSettingStore.getBoolean("generateHTMLReferenceImages", false);
+                            boolean useBase64 = !bundleSettingStore.getBoolean("useHTMLImageReferences", false);
 
                             String linkValue;
                             if (useBase64) {
