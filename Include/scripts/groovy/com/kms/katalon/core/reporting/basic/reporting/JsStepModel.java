@@ -179,15 +179,10 @@ public class JsStepModel extends JsModel {
                     if (attachmentFile.exists()) {
                         try {
                             BundleSettingStore bundleSettingStore = new BundleSettingStore(RunConfiguration.getProjectDir(),
-                            		"com.katalon.plugin.report", true);
+                                    "com.katalon.plugin.report", true);
                             boolean useBase64 = !bundleSettingStore.getBoolean("useHTMLImageReferences", false);
-
-                            String linkValue;
-                            if (useBase64) {
-                            	linkValue = "data:image/png;base64," + encodeFileContent(attachmentFile);
-                            } else {
-                                linkValue = messageLog.getAttachment();
-                            }
+                            String linkValue = useBase64 ? "data:image/png;base64," + encodeFileContent(attachmentFile) :
+                                    messageLog.getAttachment();
                             jsLogRecModel.props.add(new JsModelProperty("link", linkValue, listStrings));
                         } catch (Exception e) {
                             // TODO: Need some way to log errors here
