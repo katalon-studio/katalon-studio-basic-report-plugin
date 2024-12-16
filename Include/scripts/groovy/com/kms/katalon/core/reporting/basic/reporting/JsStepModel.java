@@ -178,21 +178,21 @@ public class JsStepModel extends JsModel {
                     
                     if (attachmentFile.exists()) {
                         try {
-                            String projectDir = RunConfiguration.getProjectDir();
-                            BundleSettingStore bundleSettingStore = new BundleSettingStore(projectDir, "com.katalon.plugin.report", true);
+                            BundleSettingStore bundleSettingStore = new BundleSettingStore(RunConfiguration.getProjectDir(),
+                            		"com.katalon.plugin.report", true);
                             boolean useBase64 = !bundleSettingStore.getBoolean("useHTMLImageReferences", false);
 
                             String linkValue;
                             if (useBase64) {
                             	linkValue = "data:image/png;base64," + encodeFileContent(attachmentFile);
                             } else {
-                                linkValue = ((MessageLogRecord) logRecord).getAttachment();
+                                linkValue = messageLog.getAttachment();
                             }
                             jsLogRecModel.props.add(new JsModelProperty("link", linkValue, listStrings));
                         } catch (Exception e) {
                             // TODO: Need some way to log errors here
                         }
-                    }          
+                    }
                 }
                 logRecords.add(jsLogRecModel);
             }
