@@ -33,6 +33,11 @@
 					"defaultValue": "false"
 				},
 				{
+					"key": "",
+					"type": "label",
+					"label": ""
+				},
+				{
 					"key": "lblHTMLFileStructure",
 					"type": "label",
 					"label": "HTML report file structure:"

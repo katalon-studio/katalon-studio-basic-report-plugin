@@ -185,10 +185,8 @@ public class JsStepModel extends JsModel {
                             String linkValue;
                             if (useBase64) {
                             	linkValue = "data:image/png;base64," + encodeFileContent(attachmentFile);
-                            } else if (attachmentFile.getPath().startsWith("/var/folders/")) {
-                                linkValue = attachmentFile.getName();
                             } else {
-                                linkValue = attachmentFile.getPath();
+                                linkValue = ((MessageLogRecord) logRecord).getAttachment();
                             }
                             jsLogRecModel.props.add(new JsModelProperty("link", linkValue, listStrings));
                         } catch (Exception e) {
